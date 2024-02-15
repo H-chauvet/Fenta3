@@ -6,7 +6,9 @@ public class ConeRaycaster : MonoBehaviour
 {
     public Light spotLight; // Reference to the Spot Light component
 
-    public Material replacedMaterial;    
+    public Material replacedMaterial;
+
+    //[SerializeField] private Camera camera;
     
         private Transform tip; // Tip of the cone
         private Transform centerBase; //Center of the base of the cone
@@ -63,8 +65,9 @@ public class ConeRaycaster : MonoBehaviour
             
             //Update center base position based on Spot Light dimensions
             float cX = spotLight.transform.forward.x; //Mathf.Cos(Mathf.Deg2Rad * angleIncrement) * Mathf.Tan(Mathf.Deg2Rad * coneAngle);
+            
             float cZ = spotLight.transform.forward.z; //Mathf.Sin(Mathf.Deg2Rad * angleIncrement) * Mathf.Tan(Mathf.Deg2Rad * coneAngle);
-            centerBase.position = spotLight.transform.position + new Vector3(cX, 0f, cZ) * spotLight.range;
+            centerBase.position = spotLight.transform.position + new Vector3(cX, 0, cZ) * spotLight.range;
             
             
             //Offsets

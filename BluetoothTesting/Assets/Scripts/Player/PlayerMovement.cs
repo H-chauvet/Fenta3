@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float sensitivity = 2.0f;
     public float jumpForce = 8.0f;
 
+    [SerializeField] private Light spotLight;
     private Camera playerCamera;
     private CharacterController characterController;
     private float rotationX = 0;
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, -90, 90);
 
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        spotLight.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, mouseX, 0);
     }
 
