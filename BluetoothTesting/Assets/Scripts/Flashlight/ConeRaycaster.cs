@@ -64,10 +64,11 @@ public class ConeRaycaster : MonoBehaviour
             float angleIncrement = 360f / basePoints.Length;
             
             //Update center base position based on Spot Light dimensions
-            float cX = spotLight.transform.forward.x; //Mathf.Cos(Mathf.Deg2Rad * angleIncrement) * Mathf.Tan(Mathf.Deg2Rad * coneAngle);
+            centerBase.position = spotLight.transform.position + spotLight.transform.forward * spotLight.range;
             
-            float cZ = spotLight.transform.forward.z; //Mathf.Sin(Mathf.Deg2Rad * angleIncrement) * Mathf.Tan(Mathf.Deg2Rad * coneAngle);
-            centerBase.position = spotLight.transform.position + new Vector3(cX, 0, cZ) * spotLight.range;
+            // float cX = spotLight.transform.forward.x; //Mathf.Cos(Mathf.Deg2Rad * angleIncrement) * Mathf.Tan(Mathf.Deg2Rad * coneAngle);
+            // float cY = spotLight.transform.forward.y;
+            // float cZ = spotLight.transform.forward.z; //Mathf.Sin(Mathf.Deg2Rad * angleIncrement) * Mathf.Tan(Mathf.Deg2Rad * coneAngle);
             
             
             //Offsets
@@ -75,10 +76,10 @@ public class ConeRaycaster : MonoBehaviour
             float negOff = -1 * (radius);
             
             //corners
-            basePoints[0].position = centerBase.position + new Vector3(0, posOff, 0);
-            basePoints[1].position = centerBase.position + new Vector3(0, negOff, 0);
-            basePoints[2].position = centerBase.position + new Vector3(posOff, 0, 0);
-            basePoints[3].position = centerBase.position + new Vector3(negOff, 0, 0);
+            basePoints[0].position = centerBase.position + spotLight.transform.up * posOff;
+            basePoints[1].position = centerBase.position + spotLight.transform.up * negOff;
+            basePoints[2].position = centerBase.position + spotLight.transform.right * posOff;
+            basePoints[3].position = centerBase.position + spotLight.transform.right * negOff;
             
         }
     
@@ -133,6 +134,7 @@ public class ConeRaycaster : MonoBehaviour
     
         void OnDrawGizmos()
         {
+            if (tip == null) return;
             // Visualize the cone using Gizmos
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(tip.position, basePoints[0].position);

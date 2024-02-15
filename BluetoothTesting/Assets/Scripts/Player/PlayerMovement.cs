@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 8.0f;
 
     [SerializeField] private Light spotLight;
+    [SerializeField]private float gravity = 9.8f;
     private Camera playerCamera;
     private CharacterController characterController;
     private float rotationX = 0;
@@ -25,8 +27,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        HandleMovement();
         HandleMouseLook();
+    }
+
+    private void FixedUpdate()
+    {
+        HandleMovement();
         HandleJump();
     }
 
@@ -38,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = new Vector3(horizontal, 0, vertical).normalized;
         Vector3 move = transform.TransformDirection(moveDirection) * walkSpeed;
 
+        move.y = characterController.velocity.y - gravity;
+        
         characterController.Move(move * Time.deltaTime);
     }
 
@@ -60,7 +68,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
-                characterController.Move(Vector3.up * jumpForce * Time.deltaTime);
+                
+                characterController.Move(Vector3.up * jumpForce);
             }
         }
     }
