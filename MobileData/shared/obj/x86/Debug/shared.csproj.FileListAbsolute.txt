@@ -98,3 +98,9 @@ C:\Users\pvbar\OneDrive - Saxion\Year 2\Quarter 3\Networking\Assignments\Assignm
 C:\Users\pvbar\OneDrive - Saxion\Year 2\Quarter 3\Networking\Assignments\Assignment 4\A4_flic_flac_flo\starting_code\shared\obj\x86\Debug\shared.csproj.CoreCompileInputs.cache
 C:\Users\pvbar\OneDrive - Saxion\Year 2\Quarter 3\Networking\Assignments\Assignment 4\A4_flic_flac_flo\starting_code\shared\obj\x86\Debug\shared.dll
 C:\Users\pvbar\OneDrive - Saxion\Year 2\Quarter 3\Networking\Assignments\Assignment 4\A4_flic_flac_flo\starting_code\shared\obj\x86\Debug\shared.pdb
+F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\shared\bin\Debug\shared.dll
+F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\shared\bin\Debug\shared.pdb
+F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\shared\obj\x86\Debug\shared.csproj.AssemblyReference.cache
+F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\shared\obj\x86\Debug\shared.csproj.CoreCompileInputs.cache
+F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\shared\obj\x86\Debug\shared.dll
+F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\shared\obj\x86\Debug\shared.pdb
