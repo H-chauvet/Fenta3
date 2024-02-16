@@ -42,6 +42,8 @@ namespace server
 		{
 			if (pMessage is ChatMessage) handleChatMessage(pMessage as ChatMessage, pSender);
 			if (pMessage is GyroData) handleGyroData(pMessage as GyroData, pSender);
+			if (pMessage is LightData) handleLightData(pMessage as LightData, pSender);
+			if (pMessage is JoystickData) handleJoystickData(pMessage as JoystickData, pSender);
 		}
 
 		
@@ -58,6 +60,16 @@ namespace server
 		private void handleGyroData(GyroData pGyroData, TcpMessageChannel pSender)
 		{
 			sendToAll(pGyroData);
+		}
+
+		private void handleLightData(LightData pLightData, TcpMessageChannel pSender)
+		{
+			sendToAll(pLightData);
+		}
+
+		private void handleJoystickData(JoystickData pJoystickData, TcpMessageChannel pSender)
+		{
+			sendToAll(pJoystickData);
 		}
 
 		private void sendServerUpdateCount()

@@ -34,10 +34,7 @@ namespace server
 
         private LoginRoom _loginRoom;   //this is the room every new user joins -- they will be immediately redirected to datahandler
         private DataHandler _dataHandler; //this is where the data transfer actually occurs
-        //-----------------------------------------------------------------------------------------
-        //TODO: REMOVE
-        //private LobbyRoom _lobbyRoom;   //this is the room a user moves to after a successful 'login'
-        //private List<GameRoom> _games;  //this is the list of games that are currently running
+
 
         //stores additional info for a player
         Dictionary<TcpMessageChannel, PlayerInfo> _playerInfo = new Dictionary<TcpMessageChannel, PlayerInfo>();
@@ -47,9 +44,7 @@ namespace server
             //we have only one instance of each room, this is especially limiting for the game room (since this means you can only have one game at a time).
             _loginRoom = new LoginRoom(this);
             _dataHandler = new DataHandler(this);
-            //TODO: REMOVE
-            //_lobbyRoom = new LobbyRoom(this);
-            //_games = new List<GameRoom>();
+
         }
 
         private void run()
@@ -79,13 +74,7 @@ namespace server
                 //now update every single room
                 _loginRoom.Update();
                 _dataHandler.Update();
-                //TODO: REMOVE
-                //_lobbyRoom.Update();
-                //foreach (GameRoom room in _games)
-                //{
-                //    room.Update();
-                //}
-                //Thread.Sleep(100);
+
             }
 
         }
@@ -93,28 +82,7 @@ namespace server
         //provide access to the different rooms on the server 
         public LoginRoom GetLoginRoom() { return _loginRoom; }
         public DataHandler GetDataHandler() { return _dataHandler; }
-        //TODO: REMOVE
-        //public LobbyRoom GetLobbyRoom() { return _lobbyRoom; }
-
-        //public GameRoom CreateGameRoom()
-        //{
-
-        //    foreach (GameRoom existingRoom in _games)
-        //    {
-        //        if (existingRoom.IsGameInPlay) continue;
-        //        Log.LogInfo("Found existing empty room. Placing players here.", this);
-        //        return existingRoom;
-        //    }
-        //    GameRoom room = new GameRoom(this);
-        //    _games.Add(room);
-        //    Log.LogInfo("No empty rooms found. Creating new room.", this);
-        //    return room;
-        //}
-        //public void CloseGameRoom(GameRoom room)
-        //{
-        //    _games.Remove(room);
-        //}
-
+        
         /**
 		 * Returns a handle to the player info for the given client 
 		 * (will create new player info if there was no info for the given client yet)

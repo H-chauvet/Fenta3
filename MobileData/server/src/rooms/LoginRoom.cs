@@ -22,11 +22,6 @@ namespace server
 		{
 			base.addMember(pMember);
 
-			//TODO: REMOVE
-			//notify the client that (s)he is now in the login room, clients can wait for that before doing anything else
-			//RoomJoinedEvent roomJoinedEvent = new RoomJoinedEvent();
-			//roomJoinedEvent.room = RoomJoinedEvent.Room.LOGIN_ROOM;
-			//pMember.SendMessage(roomJoinedEvent);
 		}
 
 		protected override void handleNetworkMessage(ASerializable pMessage, TcpMessageChannel pSender)

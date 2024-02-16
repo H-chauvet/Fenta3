@@ -5,6 +5,12 @@ using shared;
 
 public class TCPChannelHandler : MonoBehaviour
 {
+    public static TCPChannelHandler Instance
+    {
+        get;
+        private set;
+    }
+    
     public enum ClientType
     {
         Game,
@@ -19,6 +25,11 @@ public class TCPChannelHandler : MonoBehaviour
 
     protected void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        
         channel = new TcpMessageChannel();
 
         //connect to the server
@@ -61,7 +72,7 @@ public class TCPChannelHandler : MonoBehaviour
     void SendGyroData()
     {
         GyroData data1 = new GyroData();
-        data1.iValue = Time.deltaTime;
+        data1.gW = Time.deltaTime;
         channel.SendMessage(data1);
     }
 
@@ -93,9 +104,9 @@ public class TCPChannelHandler : MonoBehaviour
         {
             Debug.Log((message as ChatMessage).message);
         }
-        else if (message is GyroData)
+        if (message is GyroData)
         {
-            Debug.Log((message as GyroData).iValue);
+            Debug.Log((message as GyroData).gW);
         }
     }
 
