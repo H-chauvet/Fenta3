@@ -32,9 +32,12 @@ namespace server
 
         //we have 3 different rooms at the moment (aka simple but limited)
 
-        private LoginRoom _loginRoom;   //this is the room every new user joins
-        private LobbyRoom _lobbyRoom;   //this is the room a user moves to after a successful 'login'
-        private List<GameRoom> _games;  //this is the list of games that are currently running
+        private LoginRoom _loginRoom;   //this is the room every new user joins -- they will be immediately redirected to datahandler
+        private DataHandler _dataHandler; //this is where the data transfer actually occurs
+        //-----------------------------------------------------------------------------------------
+        //TODO: REMOVE
+        //private LobbyRoom _lobbyRoom;   //this is the room a user moves to after a successful 'login'
+        //private List<GameRoom> _games;  //this is the list of games that are currently running
 
         //stores additional info for a player
         Dictionary<TcpMessageChannel, PlayerInfo> _playerInfo = new Dictionary<TcpMessageChannel, PlayerInfo>();
@@ -43,8 +46,10 @@ namespace server
         {
             //we have only one instance of each room, this is especially limiting for the game room (since this means you can only have one game at a time).
             _loginRoom = new LoginRoom(this);
-            _lobbyRoom = new LobbyRoom(this);
-            _games = new List<GameRoom>();
+            _dataHandler = new DataHandler(this);
+            //TODO: REMOVE
+            //_lobbyRoom = new LobbyRoom(this);
+            //_games = new List<GameRoom>();
         }
 
         private void run()
@@ -73,38 +78,42 @@ namespace server
 
                 //now update every single room
                 _loginRoom.Update();
-                _lobbyRoom.Update();
-                foreach (GameRoom room in _games)
-                {
-                    room.Update();
-                }
-                Thread.Sleep(100);
+                _dataHandler.Update();
+                //TODO: REMOVE
+                //_lobbyRoom.Update();
+                //foreach (GameRoom room in _games)
+                //{
+                //    room.Update();
+                //}
+                //Thread.Sleep(100);
             }
 
         }
 
         //provide access to the different rooms on the server 
         public LoginRoom GetLoginRoom() { return _loginRoom; }
-        public LobbyRoom GetLobbyRoom() { return _lobbyRoom; }
+        public DataHandler GetDataHandler() { return _dataHandler; }
+        //TODO: REMOVE
+        //public LobbyRoom GetLobbyRoom() { return _lobbyRoom; }
 
-        public GameRoom CreateGameRoom()
-        {
+        //public GameRoom CreateGameRoom()
+        //{
 
-            foreach (GameRoom existingRoom in _games)
-            {
-                if (existingRoom.IsGameInPlay) continue;
-                Log.LogInfo("Found existing empty room. Placing players here.", this);
-                return existingRoom;
-            }
-            GameRoom room = new GameRoom(this);
-            _games.Add(room);
-            Log.LogInfo("No empty rooms found. Creating new room.", this);
-            return room;
-        }
-        public void CloseGameRoom(GameRoom room)
-        {
-            _games.Remove(room);
-        }
+        //    foreach (GameRoom existingRoom in _games)
+        //    {
+        //        if (existingRoom.IsGameInPlay) continue;
+        //        Log.LogInfo("Found existing empty room. Placing players here.", this);
+        //        return existingRoom;
+        //    }
+        //    GameRoom room = new GameRoom(this);
+        //    _games.Add(room);
+        //    Log.LogInfo("No empty rooms found. Creating new room.", this);
+        //    return room;
+        //}
+        //public void CloseGameRoom(GameRoom room)
+        //{
+        //    _games.Remove(room);
+        //}
 
         /**
 		 * Returns a handle to the player info for the given client 

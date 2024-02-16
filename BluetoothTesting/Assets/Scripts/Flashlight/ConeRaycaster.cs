@@ -96,7 +96,7 @@ public class ConeRaycaster : MonoBehaviour
                 foreach (RaycastHit hit in hits) 
                 {
                     // Handle collisions here
-                    Debug.Log("Edge" + basePoint.name + " collision with " + hit.collider.gameObject.name);
+                    //Debug.Log("Edge" + basePoint.name + " collision with " + hit.collider.gameObject.name);
                     HandleCollisions(hit.collider);
                 }
                 
@@ -108,12 +108,12 @@ public class ConeRaycaster : MonoBehaviour
 
                     RaycastHit[] otherHits = Physics.RaycastAll(basePoint.position, oDirection, oDistance);
                     
-                    Debug.Log("hey");
+                    //Debug.Log("hey");
                     
                     foreach (RaycastHit oHit in otherHits)
                     {
                         // Handle collisions here
-                        Debug.Log("Base between " + basePoint.name + "and " + otherPoint.name + " collision with " + oHit.collider.gameObject.name);
+                        //Debug.Log("Base between " + basePoint.name + "and " + otherPoint.name + " collision with " + oHit.collider.gameObject.name);
                         HandleCollisions(oHit.collider);
                     }
                 }
@@ -127,7 +127,7 @@ public class ConeRaycaster : MonoBehaviour
             foreach (RaycastHit midHit in midHits) 
             {
                 // Handle collisions here
-                Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
+                //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
                 HandleCollisions(midHit.collider);
             }
         }
@@ -157,6 +157,6 @@ public class ConeRaycaster : MonoBehaviour
 
         void HandleCollisions(Collider col)
         {
-            col.gameObject.GetComponent<Renderer>().material = replacedMaterial;
+            //col.gameObject.GetComponent<Renderer>().material = replacedMaterial;
         }
 }

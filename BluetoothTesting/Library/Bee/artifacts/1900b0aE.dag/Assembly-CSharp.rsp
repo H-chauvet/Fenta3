@@ -362,6 +362,7 @@
 "Assets/Scripts/LightSensor/LightSensorOutput.cs"
 "Assets/Scripts/LightSensor/LightSensorPluginScript.cs"
 "Assets/Scripts/Player/PlayerMovement.cs"
+"Assets/Scripts/Server/TCPChannelHandler.cs"
 -langversion:9.0
 
 /deterministic
