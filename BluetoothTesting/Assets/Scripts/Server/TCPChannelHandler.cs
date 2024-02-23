@@ -1,14 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using shared;
 
 public class TCPChannelHandler : MonoBehaviour
 {
+    //Singleton for global access to public function without needing to make a refference
+    private static TCPChannelHandler _instance;
+    
     public static TCPChannelHandler Instance
     {
-        get;
-        private set;
+        get
+        {
+            return _instance;   
+        }
+        
     }
     
     public enum ClientType
@@ -16,7 +24,8 @@ public class TCPChannelHandler : MonoBehaviour
         Game,
         Phone
     }
-
+    
+    //Channel data
     public TcpMessageChannel channel { get; private set; }
     public string IP = "127.0.0.1";
     public int port = 55555;
@@ -25,9 +34,14 @@ public class TCPChannelHandler : MonoBehaviour
 
     protected void Awake()
     {
-        if (Instance == null)
+        //Instantiate singleton
+        if (_instance == null)
         {
-            Instance = this;
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
         }
         
         channel = new TcpMessageChannel();
@@ -45,43 +59,77 @@ public class TCPChannelHandler : MonoBehaviour
     {
         ReceiveAndHandleTCPMessage();
 
-        //This part isn't necessary, it's just here to show that sending and receiving messages is working.
+        //Temporary code to actually return values while on PC
         if (channel != null)
         {
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                SendMessage();
+                SendString();
             }
 
             if (Input.GetMouseButtonDown(0))
             {
                 SendGyroData();
             }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                SendJoystickData();
+                
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                SendLightData();
+            }
         }
     }
 
 
-    //Handling of Sending ChatMessage
-    void SendMessage()
+    //Handling of sending Data
+    public void SendString(string message = "TEST MESSAGE")
     {
         ChatMessage msg = new ChatMessage();
-        msg.message = "TEST MESSAGE";
-        channel.SendMessage(msg);
+        msg.message = message;
+        SendData(msg);
     }
 
-    void SendGyroData()
+    public void SendGyroData(Quaternion gyroRotation = new Quaternion())
     {
         GyroData data1 = new GyroData();
-        data1.gW = Time.deltaTime;
-        channel.SendMessage(data1);
+        data1.gX = gyroRotation.x;
+        data1.gY = gyroRotation.y;
+        data1.gZ = gyroRotation.z;
+        data1.gW = gyroRotation.w;
+        SendData(data1);
     }
 
+    public void SendLightData(float lightStrength = 69)
+    {
+        LightData lData = new LightData();
+        lData.luxValue = lightStrength;
+        SendData(lData);
+    }
+
+    public void SendJoystickData(Vector2 direction = new Vector2())
+    {
+        JoystickData joyData = new JoystickData();
+        joyData.jX = direction.x;
+        joyData.jY = direction.y;
+        SendData(joyData);
+    }
+    
+    //For ease of readability
+    void SendData(ASerializable data)
+    {
+        channel.SendMessage(data);
+    }
+    
     //Handling of Receiving messages
     virtual protected void ReceiveAndHandleTCPMessage()
     {
         if (!channel.Connected)
         {
-            Debug.LogWarning("Trying to receive network messages, but we are no longer connected.");
+            Debug.LogWarning("Not connected to a server. Please run the server first and then connect");
             return;
         }
 
@@ -97,17 +145,32 @@ public class TCPChannelHandler : MonoBehaviour
 
     public void HandleNetworkMessage(ASerializable message)
     {
-        //CODE FOR HANDLING NETWORK MESSAGE GOES HERE
-        //Ideally you would split this into multiple functions too, but it's an if statement here because I'm lazy
+        
         if (message == null) return;
-        if (message is ChatMessage)
+        switch (message)
         {
-            Debug.Log((message as ChatMessage).message);
+            //TODO: Replace content with actual logic
+            case ChatMessage:
+                Debug.Log((message as ChatMessage).message);
+                break;
+            
+            case GyroData:
+                Debug.Log((message as GyroData).gX);
+                Debug.Log((message as GyroData).gY);
+                Debug.Log((message as GyroData).gZ);
+                Debug.Log((message as GyroData).gW);
+                break;
+            
+            case LightData:
+                Debug.Log((message as LightData).luxValue);
+                break;
+            
+            case JoystickData:
+                Debug.Log((message as JoystickData).jX);
+                Debug.Log((message as JoystickData).jY);
+                break;
         }
-        if (message is GyroData)
-        {
-            Debug.Log((message as GyroData).gW);
-        }
+        
     }
 
 }

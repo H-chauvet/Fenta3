@@ -9,6 +9,7 @@ namespace shared
 		public float gZ;
 		public float gW;
 
+		
 		public override void Serialize(Packet pPacket)
 		{
 			pPacket.Write(gX.ToString());
