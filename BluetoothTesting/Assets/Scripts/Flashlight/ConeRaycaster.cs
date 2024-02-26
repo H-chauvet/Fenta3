@@ -5,21 +5,24 @@ using UnityEngine;
 public class ConeRaycaster : MonoBehaviour
 {
     public Light spotLight; // Reference to the Spot Light component
-
+    public float rangeAmplifier; //Value that determines the relation between the light's intensity and the range of detect area
     public Material replacedMaterial;
+    
 
     //[SerializeField] private Camera camera;
     
         private Transform tip; // Tip of the cone
         private Transform centerBase; //Center of the base of the cone
         private Transform[] basePoints; // Array of 4 points determining the circle at the bottom
-        
+
+        private SphereCollider lightDetectArea;
         
         
         void Start()
         {
             // Initialize tip and basePoints
             InitializeConePoints();
+            lightDetectArea = GetComponentInChildren<SphereCollider>();
         }
     
         void Update()
@@ -52,7 +55,6 @@ public class ConeRaycaster : MonoBehaviour
         {
             // Update tip position based on Spot Light position
             tip.position = spotLight.transform.position;
-    
             
             
             // Update base points positions based on Spot Light parameters
@@ -65,6 +67,9 @@ public class ConeRaycaster : MonoBehaviour
             
             //Update center base position based on Spot Light dimensions
             centerBase.position = spotLight.transform.position + spotLight.transform.forward * spotLight.range;
+
+            lightDetectArea.gameObject.transform.position = (centerBase.position + tip.transform.position) / 2;
+            lightDetectArea.radius = spotLight.range / rangeAmplifier;
             
             // float cX = spotLight.transform.forward.x; //Mathf.Cos(Mathf.Deg2Rad * angleIncrement) * Mathf.Tan(Mathf.Deg2Rad * coneAngle);
             // float cY = spotLight.transform.forward.y;
