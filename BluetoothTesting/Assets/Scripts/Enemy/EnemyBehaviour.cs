@@ -27,15 +27,27 @@ public class EnemyBehaviour : MonoBehaviour
         
         void Start()
         {
+            InitializeExtremities();
             navMeshAgent = GetComponent<NavMeshAgent>();
+           
+        }
+
+        void InitializeExtremities()
+        {
             extremities = new Transform[]
             {
                 leftForwardExtremity, rightForwardExtremity,
                 leftSideExtremity, rightSideExtremity,
                 leftBackExtremity, rightBackExtremity
             };
+
+            foreach (Transform extremity in extremities)
+            {
+                Transform newExtremity = new GameObject(extremity.name).transform;
+                extremity.SetParent(transform);
+            }
         }
-    
+        
         void Update()
         {
             
@@ -51,7 +63,17 @@ public class EnemyBehaviour : MonoBehaviour
                 }
             }
         }
-    
+
+        void UpdateExtremities()
+        {
+            
+        }
+        
+        void ShootRaycasts()
+        {
+            
+        }
+        
         void MoveTowards(Vector3 targetPosition)
         {
             // Set the destination for the NavMeshAgent to move towards
