@@ -24,6 +24,40 @@ public class EnemyStateManager : MonoBehaviour
     
     void Update()
     {
+        switch (currentState)
+        {
+            case EnemyState.PATROL:
+                Patrol();
+                break;
+            case EnemyState.STALKING:
+                Stalk();
+                break;
+            case EnemyState.CHASING:
+                Chase();
+                break;
+            case EnemyState.TRACKING:
+                Track();
+                break;
+        }
+    }
+
+    public void Patrol()
+    {
+        
+    }
+
+    public void Stalk()
+    {
+        
+    }
+
+    public void Chase()
+    {
+        
+    }
+
+    public void Track()
+    {
         
     }
 }

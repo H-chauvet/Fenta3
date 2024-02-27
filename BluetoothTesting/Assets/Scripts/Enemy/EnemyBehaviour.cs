@@ -11,19 +11,22 @@ public class EnemyBehaviour : MonoBehaviour
 {
 
         public string targetTag = "YourTargetTag"; //This will become obsolete
-
+        public event System.Action OnArrival;
+        
+        
         #region ExtremityOffsets
-        [Header("Extremity Offsets")]
-    [SerializeField] private float forwardDistance = 4f;
-    [SerializeField] private float backDistance = 2f;
-    [SerializeField] private float forwardOffset = 5f;
-    [SerializeField] private float sidesOffset = 7.5f;
-    [SerializeField] private float backOffset = 2.5f;
-    #endregion
+        [Header("Extremity Offsets")] 
+        [SerializeField] private float forwardDistance = 4f;
+        [SerializeField] private float backDistance = 2f;
+        [SerializeField] private float forwardOffset = 5f;
+        [SerializeField] private float sidesOffset = 7.5f;
+        [SerializeField] private float backOffset = 2.5f;
+        #endregion
 
         private NavMeshAgent navMeshAgent;
         private EnemyStateManager enemyStateManager;
         private Transform lastSeenLocation;
+        private Transform currentDestination;
         
         #region Extremities
         //I know there's probably a way better way of doing this, but this will suffice for now
@@ -34,6 +37,13 @@ public class EnemyBehaviour : MonoBehaviour
         private Transform leftBackExtremity;
         private Transform rightBackExtremity;
         private Transform[] extremities;
+        #endregion
+
+        #region ChaseValues
+
+        [Header("Chase Values")] 
+        [SerializeField] private float lastPOSRefreshRate = 1f;
+        [SerializeField] private float trackLingerDelay = 3f;
         #endregion
         
         void Start()
@@ -79,6 +89,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             UpdateExtremities();
             ShootRaycasts();
+            CheckArrival();
         }
 
         void UpdateExtremities()
@@ -114,9 +125,21 @@ public class EnemyBehaviour : MonoBehaviour
                     {
                         if (hit.collider.CompareTag(targetTag))
                         {
-                            MoveTowards(hit.collider.gameObject.transform.position);
+                            SeenObject(hit.collider.gameObject);
+                            //MoveTowards(hit.collider.gameObject.transform.position);
                         }
                     }
+                }
+            }
+        }
+
+        void CheckArrival()
+        {
+            if (navMeshAgent.remainingDistance <= Mathf.Epsilon && !navMeshAgent.pathPending)
+            {
+                if (OnArrival != null)
+                {
+                    OnArrival.Invoke();
                 }
             }
         }
@@ -125,6 +148,31 @@ public class EnemyBehaviour : MonoBehaviour
         {
             // Set the destination for the NavMeshAgent to move towards
             navMeshAgent.SetDestination(targetPosition);
+            OnArrival += HandleArrival;
+        }
+
+        void HandleArrival()
+        {
+            Debug.Log("Has arrived");
+            
+            OnArrival -= HandleArrival;
+        }
+
+        void SeenObject(GameObject seenObject)
+        {
+            lastSeenLocation = seenObject.transform;
+            MoveTowards(lastSeenLocation.position);
+            //return lastSeenLocation.gameObject;
+        }
+        
+        IEnumerator UpdateLastSeenPosition()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(lastPOSRefreshRate);
+                
+                
+            }
         }
         
         void OnDrawGizmos()
