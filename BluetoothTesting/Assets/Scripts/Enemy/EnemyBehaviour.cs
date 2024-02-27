@@ -8,17 +8,37 @@ using UnityEngine.AI;
 public class EnemyBehaviour : MonoBehaviour
 {
     
-    public string targetTag = "YourTargetTag"; // Specify the target tag
+        public string targetTag = "YourTargetTag"; 
         public float raycastDistance = 10f;
+        [SerializeField] private float forwardOffset = 5f;
+        [SerializeField] private float sidesOffset = 7.5f;
+        [SerializeField] private float backOffset = 2.5f;
+        
+        
         private NavMeshAgent navMeshAgent;
-    
+        //I know there's probably a way better way of doing this, but this will suffice for now
+        private Transform leftForwardExtremity;
+        private Transform rightForwardExtremity;
+        private Transform leftSideExtremity;
+        private Transform rightSideExtremity;
+        private Transform leftBackExtremity;
+        private Transform rightBackExtremity;
+        private Transform[] extremities;
+        
         void Start()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
+            extremities = new Transform[]
+            {
+                leftForwardExtremity, rightForwardExtremity,
+                leftSideExtremity, rightSideExtremity,
+                leftBackExtremity, rightBackExtremity
+            };
         }
     
         void Update()
         {
+            
             // Shoot a raycast forward
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, raycastDistance))

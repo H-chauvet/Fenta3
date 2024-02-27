@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class ConeRaycaster : MonoBehaviour
 {
-    public Light spotLight; // Reference to the Spot Light component
-    public float rangeAmplifier; //Value that determines the relation between the light's intensity and the range of detect area
-    public Material replacedMaterial;
+        public Light spotLight; // Reference to the Spot Light component
+        public float rangeAmplifier; //Value that determines the relation between the light's intensity and the range of detect area
+        public Material replacedMaterial;
     
 
-    //[SerializeField] private Camera camera;
+        //[SerializeField] private Camera camera;
     
         private Transform tip; // Tip of the cone
         private Transform centerBase; //Center of the base of the cone
         private Transform[] basePoints; // Array of 4 points determining the circle at the bottom
 
-        private SphereCollider lightDetectArea;
+        private SphereCollider lightDetectArea; //Sphere collider attached to the light
         
         
         void Start()
