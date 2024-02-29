@@ -50,4 +50,12 @@ public class FlashlightLogic : MonoBehaviour
             }
         }
     }
+
+    public void isIntensityChanged(bool value)
+    {
+        if (value == true)
+            floatValue += 3f;
+        else
+            floatValue -= 3f;
+    }
 }

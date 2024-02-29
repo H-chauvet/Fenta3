@@ -30,6 +30,9 @@ public class TCPChannelHandler : MonoBehaviour
     public string IP = "127.0.0.1";
     public int port = 55555;
     public ClientType clientType;
+
+    private FlashlightLogic flashlightLogic;
+    private PlayerMovement playermove;
     
 
     protected void Awake()
@@ -52,6 +55,8 @@ public class TCPChannelHandler : MonoBehaviour
         PlayerJoinRequest joinRequest = new PlayerJoinRequest();
         joinRequest.name = clientType.ToString();
         channel.SendMessage(joinRequest);
+        flashlightLogic = FindObjectOfType<FlashlightLogic>();
+        playermove = FindObjectOfType<PlayerMovement>();
     }
 
 
@@ -163,11 +168,17 @@ public class TCPChannelHandler : MonoBehaviour
             
             case LightData:
                 Debug.Log((message as LightData).luxValue);
+                if ((message as LightData).luxValue.ToString() == "1")
+                    flashlightLogic.isIntensityChanged(true);
+                else
+                    flashlightLogic.isIntensityChanged(false);
                 break;
             
             case JoystickData:
                 Debug.Log((message as JoystickData).jX);
                 Debug.Log((message as JoystickData).jY);
+
+                playermove.SetMovementsDirection((message as JoystickData).jX, (message as JoystickData).jY);
                 break;
         }
         

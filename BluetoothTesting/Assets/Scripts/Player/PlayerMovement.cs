@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private Camera playerCamera;
     private CharacterController characterController;
     private float rotationX = 0;
+    private float horizontalJoysticks = 0;
+
+    private float verticalJoysticks = 0;
 
     void Start()
     {
@@ -33,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         HandleMovement();
+        HandleMovementJoysticks();
         HandleJump();
     }
 
@@ -40,6 +44,25 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+
+        Vector3 moveDirection = new Vector3(horizontal, 0, vertical).normalized;
+        Vector3 move = transform.TransformDirection(moveDirection) * walkSpeed;
+
+        move.y = characterController.velocity.y - gravity;
+        
+        characterController.Move(move * Time.deltaTime);
+    }
+
+    public void SetMovementsDirection(float horizontal, float vertical)
+    {
+        horizontalJoysticks = horizontal;
+        verticalJoysticks = vertical;
+    }
+
+    void HandleMovementJoysticks()
+    {
+        float horizontal = horizontalJoysticks;
+        float vertical = verticalJoysticks;
 
         Vector3 moveDirection = new Vector3(horizontal, 0, vertical).normalized;
         Vector3 move = transform.TransformDirection(moveDirection) * walkSpeed;
