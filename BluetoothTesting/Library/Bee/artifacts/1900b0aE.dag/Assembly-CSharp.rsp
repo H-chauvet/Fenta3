@@ -380,6 +380,7 @@
 "Assets/Scripts/Server/TCPChannelHandler.cs"
 "Assets/Scripts/Test/AbstractState.cs"
 "Assets/Scripts/Test/FSM.cs"
+"Assets/TrackingBehaviour.cs"
 -langversion:9.0
 
 /deterministic

@@ -29,8 +29,12 @@ public class EnemyStateManager : MonoBehaviour
     public event System.Action OnArrival;
     
     
+    public Transform currentDestination;
     [HideInInspector]public Transform[] patrolNodes;
     [SerializeField]private GameObject nodesParent;
+    [HideInInspector] public bool isSeeingLight;
+    [HideInInspector] public bool isSeeingPlayer;
+    
     [SerializeField]private AnimatorController FSM;
 
     private NavMeshAgent navMeshAgent;
@@ -39,7 +43,6 @@ public class EnemyStateManager : MonoBehaviour
     
     
     private Transform lastSeenLocation;
-    private Transform currentDestination;
     
     void Start()
     {
@@ -51,7 +54,7 @@ public class EnemyStateManager : MonoBehaviour
         {
             patrolNodes[i] = nodesParent.transform.GetChild(i).transform;
         }
-
+        
         anim.runtimeAnimatorController = FSM;
     }
 
@@ -64,27 +67,36 @@ public class EnemyStateManager : MonoBehaviour
                 Patrol();
                 break;
             case EnemyState.STALKING:
-                Stalk();
+                //Stalk();
                 break;
             case EnemyState.CHASING:
-                Chase();
+                //Chase();
                 break;
             case EnemyState.TRACKING:
-                Track();
+                //Track();
                 break;
         }
         CheckArrival();
+        UpdateAnimatorParams();
     }
 
     void CheckArrival()
     {
-        if (navMeshAgent.remainingDistance <= Mathf.Epsilon && !navMeshAgent.pathPending)
+        
+        if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance && !navMeshAgent.pathPending)
         {
             if (OnArrival != null)
             {
                 OnArrival.Invoke();
             }
         }
+    }
+
+    void UpdateAnimatorParams()
+    {
+        
+        anim.SetBool("isSeeingLight", isSeeingLight);
+        anim.SetBool("isSeeingPlayer", isSeeingPlayer);
     }
     
     public void Patrol()
@@ -95,16 +107,18 @@ public class EnemyStateManager : MonoBehaviour
     public void Stalk()
     {
         navMeshAgent.acceleration = stalkingSpeed;
+        MoveTowards(lastSeenLocation.position);
     }
 
     public void Chase()
     {
         navMeshAgent.acceleration = chaseSpeed;
+        MoveTowards(lastSeenLocation.position);
     }
 
     public void Track()
     {
-        
+        StartCoroutine(TrackingLinger());
     }
 
     public void MoveTowards(Vector3 position)
@@ -122,13 +136,15 @@ public class EnemyStateManager : MonoBehaviour
                 
                 break;
             case EnemyState.STALKING:
-                
+                currentDestination = null;
+                isSeeingLight = false;
                 break;
             case EnemyState.CHASING:
-                
+                currentDestination = null;
+                isSeeingPlayer = false;
                 break;
             case EnemyState.TRACKING:
-                StartCoroutine(TrackingLinger());
+                //StartCoroutine(TrackingLinger());
                 break;
         }   
         OnArrival -= HandleArrival;
@@ -137,15 +153,15 @@ public class EnemyStateManager : MonoBehaviour
     IEnumerator TrackingLinger()
     {
         yield return new WaitForSeconds(trackLingerDelay);
-        currentState = EnemyState.PATROL;
+        //currentState = EnemyState.PATROL;
     }
     
-    public IEnumerator UpdateLastSeenPosition(Transform lastSeenPosition)
+    public IEnumerator UpdateLastSeenPosition()
     {
         while (true)
         {
+            lastSeenLocation = currentDestination;
             yield return new WaitForSeconds(lastPOSRefreshRate);
-            lastSeenLocation = lastSeenPosition;
             //MoveTowards(lastSeenLocation.position);
         }
     }
