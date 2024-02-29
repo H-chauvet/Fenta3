@@ -3,7 +3,9 @@ guid: 47a63fccb1670034fb0ab187cd65a66a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - nodesParent: {instanceID: 0}
+  - FSM: {fileID: 9100000, guid: ebef5875d94bf4a4488af85ffe2c0fc6, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

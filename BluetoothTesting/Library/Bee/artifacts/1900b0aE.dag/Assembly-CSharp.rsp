@@ -367,6 +367,9 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 -analyzer:"C:/ICT/Unity/2022.3.20f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/ICT/Unity/2022.3.20f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
+"Assets/Scripts/Enemy/AnimFSM/ChaseBehaviour.cs"
+"Assets/Scripts/Enemy/AnimFSM/PatrolBehaviour.cs"
+"Assets/Scripts/Enemy/AnimFSM/StalkBehaviour.cs"
 "Assets/Scripts/Enemy/EnemyBehaviour.cs"
 "Assets/Scripts/Enemy/EnemyStateManager.cs"
 "Assets/Scripts/Flashlight/ConeRaycaster.cs"
@@ -375,6 +378,8 @@
 "Assets/Scripts/GameManager/LevelManagement/LevelData.cs"
 "Assets/Scripts/Player/PlayerMovement.cs"
 "Assets/Scripts/Server/TCPChannelHandler.cs"
+"Assets/Scripts/Test/AbstractState.cs"
+"Assets/Scripts/Test/FSM.cs"
 -langversion:9.0
 
 /deterministic

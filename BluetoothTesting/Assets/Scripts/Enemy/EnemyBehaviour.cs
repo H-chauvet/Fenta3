@@ -10,9 +10,6 @@ using UnityEngine.AI;
 public class EnemyBehaviour : MonoBehaviour
 {
 
-        public string targetTag = "YourTargetTag"; //This will become obsolete
-        public event System.Action OnArrival;
-        
         
         #region ExtremityOffsets
         [Header("Extremity Offsets")] 
@@ -22,11 +19,12 @@ public class EnemyBehaviour : MonoBehaviour
         [SerializeField] private float sidesOffset = 7.5f;
         [SerializeField] private float backOffset = 2.5f;
         #endregion
-
-        private NavMeshAgent navMeshAgent;
+        
         private EnemyStateManager enemyStateManager;
-        private Transform lastSeenLocation;
-        private Transform currentDestination;
+        private EnemyStateManager.EnemyState _currentState;
+        private bool isTrackingLight;
+        private bool isTrackingPlayer;
+        
         
         #region Extremities
         //I know there's probably a way better way of doing this, but this will suffice for now
@@ -38,19 +36,22 @@ public class EnemyBehaviour : MonoBehaviour
         private Transform rightBackExtremity;
         private Transform[] extremities;
         #endregion
-
+        
+        //This should be moved to EnemyStateManager
         #region ChaseValues
 
         [Header("Chase Values")] 
         [SerializeField] private float lastPOSRefreshRate = 1f;
         [SerializeField] private float trackLingerDelay = 3f;
+        [SerializeField] private float patrolSpeed = 4f;
+        [SerializeField] private float trackingSpeed = 5f;
+        [SerializeField] private float chaseSpeed = 8f;
         #endregion
         
         void Start()
         {
             InitializeExtremities();
-            
-            navMeshAgent = GetComponent<NavMeshAgent>();
+            //_currentState = enemyStateManager.currentState;
             enemyStateManager = GetComponent<EnemyStateManager>();
         }
 
@@ -89,7 +90,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             UpdateExtremities();
             ShootRaycasts();
-            CheckArrival();
+            //enemyStateManager.currentState = _currentState;
+            //CheckArrival();
         }
 
         void UpdateExtremities()
@@ -123,58 +125,36 @@ public class EnemyBehaviour : MonoBehaviour
 
                     foreach (RaycastHit hit in hits)
                     {
-                        if (hit.collider.CompareTag(targetTag))
+                        if (hit.collider.CompareTag("LightArea") || hit.collider.CompareTag("Player"))
                         {
-                            SeenObject(hit.collider.gameObject);
-                            //MoveTowards(hit.collider.gameObject.transform.position);
+                            if (hit.collider.CompareTag("Player"))
+                            {
+                                Debug.Log("Targeting player");
+                                StartCoroutine(enemyStateManager.UpdateLastSeenPosition(hit.collider.gameObject.transform));
+                                isTrackingPlayer = true;
+                                isTrackingLight = false;
+                                _currentState = EnemyStateManager.EnemyState.CHASING;
+                               
+                            }
+                            else if (hit.collider.CompareTag("LightArea"))
+                            {
+                                Debug.Log("Targeting light");
+                                StartCoroutine(enemyStateManager.UpdateLastSeenPosition(hit.collider.gameObject.transform));
+                                isTrackingPlayer = false;
+                                isTrackingLight = true;
+                                _currentState = EnemyStateManager.EnemyState.STALKING;
+                            }
+                            else
+                            {
+                                isTrackingPlayer = false;
+                                isTrackingLight = false;
+                            }
                         }
                     }
                 }
             }
         }
 
-        void CheckArrival()
-        {
-            if (navMeshAgent.remainingDistance <= Mathf.Epsilon && !navMeshAgent.pathPending)
-            {
-                if (OnArrival != null)
-                {
-                    OnArrival.Invoke();
-                }
-            }
-        }
-        
-        void MoveTowards(Vector3 targetPosition)
-        {
-            // Set the destination for the NavMeshAgent to move towards
-            navMeshAgent.SetDestination(targetPosition);
-            OnArrival += HandleArrival;
-        }
-
-        void HandleArrival()
-        {
-            Debug.Log("Has arrived");
-            
-            OnArrival -= HandleArrival;
-        }
-
-        void SeenObject(GameObject seenObject)
-        {
-            lastSeenLocation = seenObject.transform;
-            MoveTowards(lastSeenLocation.position);
-            //return lastSeenLocation.gameObject;
-        }
-        
-        IEnumerator UpdateLastSeenPosition()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(lastPOSRefreshRate);
-                
-                
-            }
-        }
-        
         void OnDrawGizmos()
         {
             if (extremities == null) return;
