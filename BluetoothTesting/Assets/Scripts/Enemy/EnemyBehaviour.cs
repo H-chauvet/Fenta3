@@ -39,16 +39,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Transform[] extremities;
     #endregion
         
-    //This should be moved to EnemyStateManager
-    #region ChaseValues
 
-    [Header("Chase Values")] 
-    [SerializeField] private float lastPOSRefreshRate = 1f;
-    [SerializeField] private float trackLingerDelay = 3f;
-    [SerializeField] private float patrolSpeed = 4f;
-    [SerializeField] private float trackingSpeed = 5f;
-    [SerializeField] private float chaseSpeed = 8f;
-    #endregion
         
     void Start()
     {
@@ -112,8 +103,9 @@ public class EnemyBehaviour : MonoBehaviour
                                       (-1) * transform.forward * backDistance + transform.right * backOffset;
     }
         
-    void ShootRaycasts()
+    public Dictionary<Transform, RaycastHit[]> ShootRaycasts()
     {
+        Dictionary<Transform, RaycastHit[]> dick = new Dictionary<Transform, RaycastHit[]>();
         foreach (Transform extremity in extremities)
         {
             foreach (Transform oExtremity in extremities)
@@ -124,41 +116,15 @@ public class EnemyBehaviour : MonoBehaviour
                 float distance = Vector3.Distance(extremity.position, oExtremity.position);
 
                 RaycastHit[] hits = Physics.RaycastAll(extremity.position, direction, distance);
-
+                if(dick.ContainsKey(extremity)) continue;
+                dick.Add(extremity, hits);
                 
-                
-                foreach (RaycastHit hit in hits)
-                {
-                        
-                    if (hit.collider.CompareTag("Player"))
-                    {
-                        Debug.Log("Targeting player");
-                        enemyStateManager.currentDestination = hit.collider.gameObject.transform;
-                        StartCoroutine(enemyStateManager.UpdateLastSeenPosition());
-                        enemyStateManager.isSeeingPlayer = true;
-                        //isTrackingPlayer = true;
-
-                    }
-                    else if (hit.collider.CompareTag("LightArea"))
-                    {
-                        Debug.Log("Targeting light");
-                        enemyStateManager.currentDestination = hit.collider.gameObject.transform;
-                        StartCoroutine(enemyStateManager.UpdateLastSeenPosition());
-                        enemyStateManager.isSeeingLight = true;
-                        //isTrackingLight = true;
-                    }
-                            
-                   
-
-                        
-                }
             }
         }
-    }
 
-    
-    
-    void OnDrawGizmos()
+        return dick;
+    }
+ void OnDrawGizmos()
     {
         if (extremities == null) return;
         Gizmos.color = Color.magenta;

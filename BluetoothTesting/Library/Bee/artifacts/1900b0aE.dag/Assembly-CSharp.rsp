@@ -370,6 +370,7 @@
 "Assets/Scripts/Enemy/AnimFSM/ChaseBehaviour.cs"
 "Assets/Scripts/Enemy/AnimFSM/PatrolBehaviour.cs"
 "Assets/Scripts/Enemy/AnimFSM/StalkBehaviour.cs"
+"Assets/Scripts/Enemy/AnimFSM/TrackingBehaviour.cs"
 "Assets/Scripts/Enemy/EnemyBehaviour.cs"
 "Assets/Scripts/Enemy/EnemyStateManager.cs"
 "Assets/Scripts/Flashlight/ConeRaycaster.cs"
@@ -380,7 +381,6 @@
 "Assets/Scripts/Server/TCPChannelHandler.cs"
 "Assets/Scripts/Test/AbstractState.cs"
 "Assets/Scripts/Test/FSM.cs"
-"Assets/TrackingBehaviour.cs"
 -langversion:9.0
 
 /deterministic

@@ -7,7 +7,7 @@ public class PatrolBehaviour : StateMachineBehaviour
     private GameObject thisObject;
     private EnemyStateManager ESM;
 
-    private int nodeIndex = 0;
+    
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -19,15 +19,7 @@ public class PatrolBehaviour : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (ESM.patrolNodes == null || ESM.patrolNodes.Length == 0) return;
-        Vector3 target = ESM.patrolNodes[nodeIndex].position;
-        target.y = thisObject.transform.position.y;
-        ESM.MoveTowards(target);
         
-        if (Vector3.Distance(thisObject.transform.position, target) < 0.1f)
-        {
-            nodeIndex = (nodeIndex + 1) % ESM.patrolNodes.Length;
-        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
