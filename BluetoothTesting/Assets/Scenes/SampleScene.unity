@@ -445,11 +445,6 @@ MonoBehaviour:
   forwardOffset: 4
   sidesOffset: 5.3
   backOffset: 2.5
-  lastPOSRefreshRate: 1
-  trackLingerDelay: 3
-  patrolSpeed: 4
-  trackingSpeed: 5
-  chaseSpeed: 8
 --- !u!195 &477511004
 NavMeshAgent:
   m_ObjectHideFlags: 0
