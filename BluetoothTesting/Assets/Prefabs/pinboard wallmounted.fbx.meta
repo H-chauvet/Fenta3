@@ -3,7 +3,12 @@ guid: dd97788fe8e7d6e4cb21ec82ceb77b31
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pinboard1
+    second: {fileID: 2100000, guid: d5fa2f0482de02143a533f0e7bd2e0a9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
