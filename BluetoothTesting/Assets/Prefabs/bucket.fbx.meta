@@ -3,7 +3,12 @@ guid: 155dd0d544b0b1c4eb57f5569bf88ea4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: outside_closet_models
+    second: {fileID: 2100000, guid: c4f4d6729bd50a34ca3a950d79787cff, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
