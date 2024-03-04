@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ConeRaycaster : MonoBehaviour
 {
         public Light spotLight; // Reference to the Spot Light component
         public float rangeAmplifier; //Value that determines the relation between the light's intensity and the range of detect area
-        public Material replacedMaterial;
+        //public Material replacedMaterial;
     
 
         //[SerializeField] private Camera camera;
@@ -15,14 +16,14 @@ public class ConeRaycaster : MonoBehaviour
         private Transform centerBase; //Center of the base of the cone
         private Transform[] basePoints; // Array of 4 points determining the circle at the bottom
 
-        private SphereCollider lightDetectArea; //Sphere collider attached to the light
+        public GameObject lightDetectArea; //Sphere collider attached to the light; SWITCH BACK TO PRIVATE AFTER TESTING
         
         
         void Start()
         {
             // Initialize tip and basePoints
             InitializeConePoints();
-            lightDetectArea = GetComponentInChildren<SphereCollider>();
+            
         }
     
         void Update()
@@ -68,14 +69,9 @@ public class ConeRaycaster : MonoBehaviour
             //Update center base position based on Spot Light dimensions
             centerBase.position = spotLight.transform.position + spotLight.transform.forward * spotLight.range;
 
-            lightDetectArea.gameObject.transform.position = (centerBase.position + tip.transform.position) / 2;
-            lightDetectArea.radius = spotLight.range / rangeAmplifier;
-            
-            // float cX = spotLight.transform.forward.x; //Mathf.Cos(Mathf.Deg2Rad * angleIncrement) * Mathf.Tan(Mathf.Deg2Rad * coneAngle);
-            // float cY = spotLight.transform.forward.y;
-            // float cZ = spotLight.transform.forward.z; //Mathf.Sin(Mathf.Deg2Rad * angleIncrement) * Mathf.Tan(Mathf.Deg2Rad * coneAngle);
-            
-            
+            //lightDetectArea.gameObject.transform.position = (centerBase.position + tip.transform.position) / 2;
+            //lightDetectArea.radius = spotLight.range / rangeAmplifier;
+
             //Offsets
             float posOff = radius;
             float negOff = -1 * (radius);
@@ -136,7 +132,17 @@ public class ConeRaycaster : MonoBehaviour
                 HandleCollisions(midHit.collider);
             }
         }
-    
+
+        public SphereCollider CreateSphere()
+        {
+            SphereCollider newSphere = lightDetectArea.AddComponent<SphereCollider>();
+            Vector3 pos = (centerBase.position + tip.transform.position) / 2;
+            float rad = spotLight.range / rangeAmplifier;
+            newSphere.transform.position = pos;
+            newSphere.radius = rad;
+            return newSphere;
+        }
+        
         void OnDrawGizmos()
         {
             if (tip == null) return;
