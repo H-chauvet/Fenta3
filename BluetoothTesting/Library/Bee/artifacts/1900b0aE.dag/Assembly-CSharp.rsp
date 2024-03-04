@@ -379,8 +379,6 @@
 "Assets/Scripts/GameManager/LevelManagement/LevelData.cs"
 "Assets/Scripts/Player/PlayerMovement.cs"
 "Assets/Scripts/Server/TCPChannelHandler.cs"
-"Assets/Scripts/Test/AbstractState.cs"
-"Assets/Scripts/Test/FSM.cs"
 -langversion:9.0
 
 /deterministic
