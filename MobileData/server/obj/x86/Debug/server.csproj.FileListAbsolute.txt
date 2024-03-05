@@ -179,3 +179,13 @@ F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\server\obj\x86\Debug\serv
 F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\server\obj\x86\Debug\server.csproj.CopyComplete
 F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\server\obj\x86\Debug\server.exe
 F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\server\obj\x86\Debug\server.pdb
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\server\bin\Debug\server.exe.config
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\server\bin\Debug\server.exe
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\server\bin\Debug\server.pdb
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\server\bin\Debug\shared.dll
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\server\bin\Debug\shared.pdb
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\server\obj\x86\Debug\server.csproj.AssemblyReference.cache
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\server\obj\x86\Debug\server.csproj.CoreCompileInputs.cache
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\server\obj\x86\Debug\server.csproj.CopyComplete
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\server\obj\x86\Debug\server.exe
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\server\obj\x86\Debug\server.pdb

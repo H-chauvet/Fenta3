@@ -44,7 +44,8 @@ namespace server
 			if (pMessage is GyroData) handleGyroData(pMessage as GyroData, pSender);
 			if (pMessage is LightData) handleLightData(pMessage as LightData, pSender);
 			if (pMessage is JoystickData) handleJoystickData(pMessage as JoystickData, pSender);
-		}
+            if (pMessage is LookData) handleLookData(pMessage as LookData, pSender);
+        }
 
 		
 
@@ -72,7 +73,12 @@ namespace server
 			sendToAll(pJoystickData);
 		}
 
-		private void sendServerUpdateCount()
+        private void handleLookData(LookData pLookData, TcpMessageChannel pSender)
+        {
+            sendToAll(pLookData);
+        }
+
+        private void sendServerUpdateCount()
 		{
 			ServerInfoUpdate serverInfoMessage = new ServerInfoUpdate();
 			serverInfoMessage.memberCount = memberCount;

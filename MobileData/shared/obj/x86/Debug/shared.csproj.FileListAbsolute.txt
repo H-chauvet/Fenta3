@@ -104,3 +104,9 @@ F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\shared\obj\x86\Debug\shar
 F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\shared\obj\x86\Debug\shared.csproj.CoreCompileInputs.cache
 F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\shared\obj\x86\Debug\shared.dll
 F:\Saxion\Projects\Y2\2.3 Innovation\Fenta3\MobileData\shared\obj\x86\Debug\shared.pdb
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\shared\bin\Debug\shared.dll
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\shared\bin\Debug\shared.pdb
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\shared\obj\x86\Debug\shared.csproj.AssemblyReference.cache
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\shared\obj\x86\Debug\shared.csproj.CoreCompileInputs.cache
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\shared\obj\x86\Debug\shared.dll
+C:\Users\henri\Documents\GitHub\Fenta3\MobileData\shared\obj\x86\Debug\shared.pdb
