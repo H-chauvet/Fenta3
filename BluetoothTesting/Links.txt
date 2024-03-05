@@ -1,0 +1,4 @@
+https://docs.unity3d.com/Manual/UnityRemote5.html
+https://en.softonic.com/download/android-sdk/windows/post-download?ext=1
+https://developer.android.com/tools/releases/platform-tools#downloads
+https://developer.android.com/studio/intro/update#sdk-manager
