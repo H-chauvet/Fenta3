@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalJoysticks = 0;
 
     private float verticalJoysticks = 0;
+    private float horizontalLook = 0;
+    private float verticalLook = 0;
 
     void Start()
     {
@@ -31,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         HandleMouseLook();
+        HandleMouseLookJoysticks();
     }
 
     private void FixedUpdate()
@@ -59,6 +62,12 @@ public class PlayerMovement : MonoBehaviour
         verticalJoysticks = vertical;
     }
 
+    public void SetLookDirection(float horizontal, float vertical)
+    {
+        horizontalLook = horizontal;
+        verticalLook = vertical;
+    }
+
     void HandleMovementJoysticks()
     {
         float horizontal = horizontalJoysticks;
@@ -76,6 +85,19 @@ public class PlayerMovement : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+
+        rotationX -= mouseY;
+        rotationX = Mathf.Clamp(rotationX, -90, 90);
+
+        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        spotLight.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        transform.rotation *= Quaternion.Euler(0, mouseX, 0);
+    }
+
+    void HandleMouseLookJoysticks()
+    {
+        float mouseX = horizontalLook;
+        float mouseY = verticalLook;
 
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -90, 90);

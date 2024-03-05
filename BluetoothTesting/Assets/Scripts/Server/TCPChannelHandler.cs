@@ -180,6 +180,13 @@ public class TCPChannelHandler : MonoBehaviour
 
                 playermove.SetMovementsDirection((message as JoystickData).jX, (message as JoystickData).jY);
                 break;
+            
+            case LookData:
+                Debug.Log((message as LookData).lX);
+                Debug.Log((message as LookData).lY);
+
+                playermove.SetLookDirection((message as LookData).lX, (message as LookData).lY);
+                break;
         }
         
     }
