@@ -38,12 +38,6 @@ public class GameManager : MonoBehaviour
         //On initialization, set last played level to the current level, which would be the last level played
         lastLevel.levelIndex = SceneManager.GetActiveScene().buildIndex;
     }
-    
-    public void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-            ExitLevel();
-    }
 
     public void LoadLevel()
     {
@@ -70,10 +64,5 @@ public class GameManager : MonoBehaviour
     public void ReloadLastLevel()
     {
         SceneManager.LoadScene(lastLevel.levelIndex);
-    }
-    
-    public void ExitLevel()
-    {
-        Application.Quit();
     }
 }
