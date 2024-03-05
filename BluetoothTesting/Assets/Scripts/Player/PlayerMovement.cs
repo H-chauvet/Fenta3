@@ -15,6 +15,10 @@ public class PlayerMovement : MonoBehaviour
     private Camera playerCamera;
     private CharacterController characterController;
     private float rotationX = 0;
+    private float horizontalJoysticks = 0;
+    private float verticalJoysticks = 0;
+    private float horizontalLook = 0;
+    private float verticalLook = 0;
 
     void Start()
     {
@@ -28,12 +32,39 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         HandleMouseLook();
+        HandleLookJoysticks();
     }
 
     private void FixedUpdate()
     {
         HandleMovement();
+        HandleMovementJoysticks();
         HandleJump();
+    }
+
+    public void SetMovementsDirection(float horizontal, float vertical)
+    {
+        horizontalJoysticks = horizontal;
+        verticalJoysticks = vertical;
+    }
+
+    public void SetLookDirection(float horizontal, float vertical)
+    {
+        horizontalLook = horizontal;
+        verticalLook = vertical;
+    }
+
+    void HandleMovementJoysticks()
+    {
+        float horizontal = horizontalJoysticks;
+        float vertical = verticalJoysticks;
+
+        Vector3 moveDirection = new Vector3(horizontal, 0, vertical).normalized;
+        Vector3 move = transform.TransformDirection(moveDirection) * walkSpeed;
+
+        move.y = characterController.velocity.y - gravity;
+        
+        characterController.Move(move * Time.deltaTime);
     }
 
     void HandleMovement()
@@ -53,6 +84,19 @@ public class PlayerMovement : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+
+        rotationX -= mouseY;
+        rotationX = Mathf.Clamp(rotationX, -90, 90);
+
+        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        spotLight.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        transform.rotation *= Quaternion.Euler(0, mouseX, 0);
+    }
+
+    void HandleLookJoysticks()
+    {
+        float mouseX = horizontalLook * 0.2f;
+        float mouseY = verticalLook * 0.2f;
 
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -90, 90);
