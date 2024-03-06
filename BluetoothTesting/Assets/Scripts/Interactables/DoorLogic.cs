@@ -30,7 +30,7 @@ public class DoorLogic : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerInRange)
+        if (Input.GetKeyDown(KeyCode.E) && playerInRange && pickupLogic.currentItem.tiedDoor == gameObject)
         {
             pickupLogic.UseItem(this);
         }
