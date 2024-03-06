@@ -10,7 +10,7 @@ public class FlashlightLogic : MonoBehaviour
     [SerializeField] private float lightRangedMod = 10f;
     private float lightIntensity = 5f;
     private float lightRange = 10f;
-    private float floatValue = 3f;
+    private float floatValue = 0f;
     private List<SphereCollider> colliders;
     private ConeRaycaster CR;
     
@@ -85,12 +85,9 @@ public class FlashlightLogic : MonoBehaviour
         }
     }
 
-    public void isIntensityChanged(bool value)
+    public void isIntensityChanged(float value)
     {
-        if (value == true)
-            floatValue += 3f;
-        else
-            floatValue -= 3f;
+            floatValue = value;
     }
 
     void AttachSpheres()
