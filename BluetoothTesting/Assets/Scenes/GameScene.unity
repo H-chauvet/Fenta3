@@ -611,6 +611,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotLight: {fileID: 398914090}
   rangeAmplifier: 1
+  tip: {fileID: 0}
+  centerBase: {fileID: 0}
+  midLength: {fileID: 0}
+  basePoints: []
   lightDetectArea: {fileID: 540135189}
 --- !u!4 &398914093
 Transform:
@@ -3160,11 +3164,11 @@ PrefabInstance:
     - target: {fileID: 1762133696860918089, guid: 9357a0b6ddca4074dab68acb5b7e3788, type: 3}
       propertyPath: light
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 398914089}
     - target: {fileID: 1762133696860918089, guid: 9357a0b6ddca4074dab68acb5b7e3788, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1827865206}
     - target: {fileID: 1762133696860918089, guid: 9357a0b6ddca4074dab68acb5b7e3788, type: 3}
       propertyPath: enemyArray.Array.data[0]
       value: 
