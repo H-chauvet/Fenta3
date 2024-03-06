@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 moveDirection = new Vector3(horizontal, 0, vertical).normalized;
         Vector3 move = transform.TransformDirection(moveDirection) * walkSpeed;
-        Debug.Log(characterController.velocity.x);
+        
 
         move.y = characterController.velocity.y - gravity;
         

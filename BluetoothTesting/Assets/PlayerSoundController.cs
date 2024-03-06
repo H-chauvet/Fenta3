@@ -4,31 +4,78 @@ using UnityEngine;
 
 public class PlayerSoundController : MonoBehaviour
 {
-    public AudioClip footstepSound;
-    public AudioSource audioSource;
-    
+    [SerializeField]private AudioClip woodSound;
+    [SerializeField]private AudioClip metalSound;
 
+    private AudioSource woodSurfaceAudio;
+    private AudioSource metalSurfaceAudio;
+
+    private bool pulaCaLemnu;
+    private bool pulaCaTeava;
+    
     public PlayerMovement playerMovement;
-   
 
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        audioSource = GetComponent<AudioSource>();
+
+        // Assign the AudioSource components
+        woodSurfaceAudio = gameObject.AddComponent<AudioSource>();
+        woodSurfaceAudio.clip = woodSound;
+        //woodSurfaceAudio.Play();
+        metalSurfaceAudio = gameObject.AddComponent<AudioSource>();
+        metalSurfaceAudio.clip = metalSound;
+        //metalSurfaceAudio.Play();
     }
 
-    void Update()
-    {
-        CheckMovementSound();
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.W)){
+            if(pulaCaLemnu){
+                Debug.Log("w is pressed");
+                
+                woodSurfaceAudio.Play();
+            }
+            else if(pulaCaTeava){
+                metalSurfaceAudio.Play();
+            }
+        }
+        if(Input.GetKeyUp(KeyCode.W))
+            {
+                if(pulaCaLemnu){
+                Debug.Log("w is released");
+                woodSurfaceAudio.Stop();
+            }
+                
+            }
+        
     }
 
-    void CheckMovementSound()
+    void OnCollisionStay(Collision col)
     {
-        if (Mathf.Abs(playerMovement.characterController.velocity.x) != 0)
+        Debug.Log(col.gameObject);
+        if(col.gameObject.CompareTag("wood"))
         {
-            // Play footstep sound
-            audioSource.PlayOneShot(footstepSound);
+            pulaCaLemnu = true;
+            pulaCaTeava = false;
+            // if(Input.GetKeyDown(KeyCode.W))
+            // {
+                
+            // }
             
+        }
+        else if(col.gameObject.CompareTag("metal"))
+        {
+            pulaCaTeava = true;
+            pulaCaLemnu = false;
+                Debug.Log("fututten nas");
+            if(playerMovement.characterController.velocity.x != 0)
+            {
+            }
+        }
+        else{
+            pulaCaLemnu = false;
+            pulaCaTeava = false;
+            Debug.Log("Nu e pulaaa");
         }
     }
 }
