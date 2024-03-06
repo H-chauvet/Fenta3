@@ -8,7 +8,7 @@ public class ItemHighlight : MonoBehaviour
     [SerializeField] private Material highlightMaterial;
 
     // Flag to determine whether the object is currently highlighted
-    private bool isHighlighted = false;
+    [HideInInspector]public bool isHighlighted = false;
 
     // Keep a reference to the original material of the object
     private List<Material> originalMaterial;

@@ -12,6 +12,8 @@ public class DoorLogic : MonoBehaviour
 
     private void Start()
     {
+        AudioSource audi = new AudioSource();
+        
         itemHighlight = GetComponent<ItemHighlight>();
     }
 
@@ -21,9 +23,10 @@ public class DoorLogic : MonoBehaviour
         {
             Debug.Log("Player entered");
             pickupLogic = other.GetComponent<PickupLogic>();
+            playerInRange = true;
+            if (pickupLogic.currentItem == null) return;
             if(pickupLogic.currentItem.tiedDoor == gameObject) itemHighlight.ApplyHighlight();
             
-            playerInRange = true;
         }
     }
 
@@ -32,8 +35,8 @@ public class DoorLogic : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //Debug.Log("Player entered");
-            pickupLogic = null;
-            if(pickupLogic.currentItem.tiedDoor == gameObject) itemHighlight.RemoveHighlight();
+            pickupLogic = null; 
+            if(itemHighlight.isHighlighted)itemHighlight.RemoveHighlight();
             playerInRange = false;
         }
     }

@@ -139,7 +139,7 @@ public class ConeRaycaster : MonoBehaviour
             newSphere.isTrigger = true;
             Vector3 pos = (centerBase.position + tip.transform.position) / 2;
             float rad = spotLight.range / rangeAmplifier;
-            newSphere.transform.position = pos;
+            newSphere.center = transform.InverseTransformPoint(pos);
             newSphere.radius = rad;
             return newSphere;
         }
