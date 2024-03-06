@@ -3,11 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ItemHighlight))]
 public class ItemLogic : MonoBehaviour
 {
     public GameObject tiedDoor;
     private PickupLogic pickupLogic;
+    private ItemHighlight itemHighlight;
     private bool playerInRange;
+
+    private void Start()
+    {
+        itemHighlight = GetComponent<ItemHighlight>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,6 +22,7 @@ public class ItemLogic : MonoBehaviour
         {
             Debug.Log("Player entered");
             pickupLogic = other.GetComponent<PickupLogic>();
+            itemHighlight.ApplyHighlight();
             playerInRange = true;
         }
     }
@@ -23,6 +31,7 @@ public class ItemLogic : MonoBehaviour
     {
         Debug.Log("Player exited");
         pickupLogic = null;
+        itemHighlight.RemoveHighlight();
         playerInRange = false;
     }
 
@@ -30,6 +39,7 @@ public class ItemLogic : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && playerInRange)
         {
+            itemHighlight.RemoveHighlight();
             pickupLogic.PickupItem(this);
         }
     }
