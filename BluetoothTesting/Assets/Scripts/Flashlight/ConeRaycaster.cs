@@ -12,9 +12,10 @@ public class ConeRaycaster : MonoBehaviour
 
         //[SerializeField] private Camera camera;
     
-        private Transform tip; // Tip of the cone
-        private Transform centerBase; //Center of the base of the cone
-        private Transform[] basePoints; // Array of 4 points determining the circle at the bottom
+        [HideInInspector]public Transform tip; // Tip of the cone
+        [HideInInspector]public Transform centerBase; //Center of the base of the cone
+        [HideInInspector]public Transform midLength; //Middle of the height of the cone
+        [HideInInspector]public Transform[] basePoints; // Array of 4 points determining the circle at the bottom
 
         public GameObject lightDetectArea; //Sphere collider attached to the light; SWITCH BACK TO PRIVATE AFTER TESTING
         
@@ -31,24 +32,56 @@ public class ConeRaycaster : MonoBehaviour
             // Update cone points positions based on Spot Light parameters
             UpdateConePoints();
     
+            midLength.tag = "Extremity";
+            centerBase.tag = "Extremity";
+            basePoints[2].tag = "Extremity";
+            basePoints[3].tag = "Extremity";
             // Shoot raycasts between all pairs of points
             ShootRaycasts();
         }
-    
+
         void InitializeConePoints()
         {
             // Create the tip and basePoints objects
             tip = new GameObject("ConeTip").transform;
-            centerBase = new GameObject("ConeCenterBase").transform;
-            
             tip.SetParent(transform);
-            centerBase.SetParent(transform);
+            
+            centerBase = new GameObject("ConeCenterBase")
+            {
+                tag = "Extremity",
+                transform = {parent = this.transform}
+            }.transform;
+
+            midLength = new GameObject("MidLength")
+            {
+                tag = "Extremity",
+                transform = {parent = this.transform}
+            }.transform;
             
             basePoints = new Transform[4];
             for (int i = 0; i < basePoints.Length; i++)
             {
-                basePoints[i] = new GameObject("BasePoint" + i).transform;
-                basePoints[i].SetParent(transform);
+                basePoints[i] = new GameObject("BasePoint" + i)
+                {
+                    tag = "Extremity",
+                    transform = {parent = this.transform}
+                }.transform;
+                //basePoints[i].SetParent(transform);
+            }
+
+            SphereCollider centerCol = centerBase.AddComponent<SphereCollider>();
+            centerCol.isTrigger = true;
+            centerCol.radius = Mathf.Epsilon;
+
+            SphereCollider middleCol = midLength.AddComponent<SphereCollider>();
+            middleCol.isTrigger = true;
+            middleCol.radius = Mathf.Epsilon;
+            
+            for (int i = 0; i < basePoints.Length; i++)
+            {
+                SphereCollider sideCol = basePoints[i].AddComponent<SphereCollider>();
+                sideCol.isTrigger = true;
+                sideCol.radius = Mathf.Epsilon;
             }
         }
     
@@ -69,8 +102,7 @@ public class ConeRaycaster : MonoBehaviour
             //Update center base position based on Spot Light dimensions
             centerBase.position = spotLight.transform.position + spotLight.transform.forward * spotLight.range;
 
-            //lightDetectArea.gameObject.transform.position = (centerBase.position + tip.transform.position) / 2;
-            //lightDetectArea.radius = spotLight.range / rangeAmplifier;
+            midLength.position = spotLight.transform.position + spotLight.transform.forward * spotLight.range / 2;
 
             //Offsets
             float posOff = radius;
@@ -86,6 +118,8 @@ public class ConeRaycaster : MonoBehaviour
     
         void ShootRaycasts()
         {
+            
+            
             // Shoot raycasts and handle collisions
             foreach (Transform basePoint in basePoints) //Tip -> corner
             {
@@ -115,22 +149,51 @@ public class ConeRaycaster : MonoBehaviour
                     {
                         // Handle collisions here
                         //Debug.Log("Base between " + basePoint.name + "and " + otherPoint.name + " collision with " + oHit.collider.gameObject.name);
-                        HandleCollisions(oHit.collider);
+                        
                     }
                 }
             }
-            //Tip -> middle
+            //Tip -> right
+            Vector3 rightDirection = (basePoints[2].position - tip.position).normalized;
+            float rightDistance = Vector3.Distance(tip.position, basePoints[2].position);
+    
+            RaycastHit[] rightHits = Physics.RaycastAll(tip.position, rightDirection, rightDistance);
+                
+            foreach (RaycastHit rightHit in rightHits) 
+            {
+                // Handle collisions here
+                //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
+                //HandleCollisions(rightHit.collider);
+            }
+            
+            //Tip -> left
+            Vector3 leftDirection = (basePoints[3].position - tip.position).normalized;
+            float leftDistance = Vector3.Distance(tip.position, basePoints[3].position);
+    
+            RaycastHit[] leftHits = Physics.RaycastAll(tip.position, leftDirection, leftDistance);
+                
+            foreach (RaycastHit leftHit in leftHits) 
+            {
+                // Handle collisions here
+                //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
+                //HandleCollisions(leftHit.collider);
+            }
+            
+            //Tip -> center
             Vector3 midDirection = (centerBase.position - tip.position).normalized;
             float midDistance = Vector3.Distance(tip.position, centerBase.position);
     
             RaycastHit[] midHits = Physics.RaycastAll(tip.position, midDirection, midDistance);
-                
-            foreach (RaycastHit midHit in midHits) 
-            {
-                // Handle collisions here
-                //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
-                HandleCollisions(midHit.collider);
-            }
+            if(midHits.Length != 0 && (!midHits[0].collider.gameObject.CompareTag("Enemy") || !midHits[0].collider.gameObject.CompareTag("Extremity"))) midHits[0].collider.tag = "Untagged";
+            Debug.DrawRay(tip.position, midDirection, Color.black);
+            // foreach (RaycastHit midHit in midHits) 
+            // {
+            //     // Handle collisions here
+            //     //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
+            //     if (midHit.collider.gameObject == centerBase.gameObject) continue;
+            //     midHit.collider.tag = "Untagged";
+            //     //HandleCollisions(midHit.collider);
+            // }
         }
 
         public SphereCollider CreateSphere()
@@ -139,7 +202,7 @@ public class ConeRaycaster : MonoBehaviour
             newSphere.isTrigger = true;
             Vector3 pos = (centerBase.position + tip.transform.position) / 2;
             float rad = spotLight.range / rangeAmplifier;
-            newSphere.transform.position = pos;
+            newSphere.center = transform.InverseTransformPoint(pos);
             newSphere.radius = rad;
             return newSphere;
         }
@@ -157,7 +220,7 @@ public class ConeRaycaster : MonoBehaviour
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(tip.position, basePoints[3].position);
             Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(tip.position, centerBase.position);
+            //Gizmos.DrawLine(tip.position, centerBase.position);
         
             Gizmos.color = Color.green;
             Gizmos.DrawLine(basePoints[0].position, basePoints[1].position);
@@ -169,6 +232,15 @@ public class ConeRaycaster : MonoBehaviour
 
         void HandleCollisions(Collider col)
         {
-            //col.gameObject.GetComponent<Renderer>().material = replacedMaterial;
+            if (!col.gameObject.CompareTag("Enemy"))
+            {
+                col.gameObject.tag = "Untagged";
+                Debug.Log(col.gameObject);
+            }
+
+            if (col.gameObject.CompareTag("Extremity"))
+            {
+                col.gameObject.tag = "Extremity";
+            }
         }
 }

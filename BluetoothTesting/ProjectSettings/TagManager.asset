@@ -7,6 +7,8 @@ TagManager:
   - LightArea
   - wood
   - metal
+  - Enemy
+  - Extremity
   layers:
   - Default
   - TransparentFX

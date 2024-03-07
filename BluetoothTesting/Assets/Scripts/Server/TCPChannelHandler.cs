@@ -168,10 +168,7 @@ public class TCPChannelHandler : MonoBehaviour
             
             case LightData:
                 Debug.Log((message as LightData).luxValue);
-                if ((message as LightData).luxValue.ToString() == "1")
-                    flashlightLogic.isIntensityChanged(true);
-                else
-                    flashlightLogic.isIntensityChanged(false);
+                flashlightLogic.isIntensityChanged((message as LightData).luxValue);
                 break;
             
             case JoystickData:
@@ -186,6 +183,10 @@ public class TCPChannelHandler : MonoBehaviour
                 Debug.Log((message as LookData).lY);
 
                 playermove.SetLookDirection((message as LookData).lX, (message as LookData).lY);
+                break;
+            
+            case InteractData:
+                Debug.Log((message as InteractData).interactPressed);
                 break;
         }
         

@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed = 5.0f;
     public float sensitivity = 2.0f;
     public float jumpForce = 8.0f;
+    [HideInInspector]public bool canMove = true;
+    private CharacterController characterController;
 
     [SerializeField] private Light spotLight;
     [SerializeField]private float gravity = 9.8f;
@@ -31,12 +33,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!canMove) return;
         HandleMouseLook();
         HandleLookJoysticks();
     }
 
     private void FixedUpdate()
     {
+        if (!canMove) return;
         HandleMovement();
         HandleMovementJoysticks();
         HandleJump();
@@ -96,8 +100,8 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleLookJoysticks()
     {
-        float mouseX = horizontalLook * 0.2f;
-        float mouseY = verticalLook * 0.2f;
+        float mouseX = horizontalLook * 0.55f;
+        float mouseY = verticalLook * 0.55f;
 
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -90, 90);
