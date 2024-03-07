@@ -12,7 +12,6 @@ public class EnemyStateManager : MonoBehaviour
 
     [Header("Chase Values")] 
     [SerializeField] private float lastPOSRefreshRate = 1f;
-    [SerializeField] private float trackLingerDelay = 3f;
     [SerializeField] private float patrolSpeed = 4f;
     [SerializeField] private float stalkingSpeed = 5f;
     [SerializeField] private float chaseSpeed = 8f;
@@ -153,24 +152,7 @@ public class EnemyStateManager : MonoBehaviour
 
     void HandleArrival()
     {
-        Debug.Log("Has arrived");
-        switch (currentState)
-        {
-            // case EnemyState.PATROL:
-            //     
-            //     break;
-            // case EnemyState.STALKING:
-            //     currentDestination = null;
-            //     isSeeingLight = false;
-            //     break;
-            // case EnemyState.CHASING:
-            //     currentDestination = null;
-            //     isSeeingPlayer = false;
-            //     break;
-            // case EnemyState.TRACKING:
-            //     //StartCoroutine(TrackingLinger());
-            //     break;
-        }   
+        
         
     }
     
@@ -192,6 +174,7 @@ public class EnemyStateManager : MonoBehaviour
                 else if (hitDick.collider.CompareTag("LightArea"))
                 {
                     Debug.Log("Chasing light");
+                    enemyBehaviour.CheckPlayerExtremities();
                     hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
                 }
             }
