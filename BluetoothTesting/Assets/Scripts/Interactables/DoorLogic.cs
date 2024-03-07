@@ -15,6 +15,17 @@ public class DoorLogic : MonoBehaviour
         AudioSource audi = new AudioSource();
         
         itemHighlight = GetComponent<ItemHighlight>();
+        TCPChannelHandler.Instance.interactEvent += OnInteractEvent;
+    }
+
+    private void OnInteractEvent(bool isPressed)
+    {
+        HandleInteract(isPressed);
+    }
+
+    void OnDisable()
+    {
+        TCPChannelHandler.Instance.interactEvent -= OnInteractEvent;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,10 +54,25 @@ public class DoorLogic : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerInRange && pickupLogic.currentItem.tiedDoor == gameObject)
+        
+        // if (pickupLogic == null || pickupLogic.currentItem == null) return;
+        // if (Input.GetKeyDown(KeyCode.E) && playerInRange && pickupLogic.currentItem.tiedDoor == gameObject)
+        // {
+        //     itemHighlight.RemoveHighlight();
+        //     pickupLogic.UseItem(this);
+        // }
+    }
+
+    public void HandleInteract(bool isPressed)
+    {
+        if (isPressed == true)
         {
-            itemHighlight.RemoveHighlight();
-            pickupLogic.UseItem(this);
+            if (pickupLogic == null || pickupLogic.currentItem == null) return;
+            if (playerInRange && pickupLogic.currentItem.tiedDoor == gameObject)
+            {
+                itemHighlight.RemoveHighlight();
+                pickupLogic.UseItem(this);
+            }
         }
     }
 }

@@ -66,7 +66,6 @@ public class TCPChannelHandler : MonoBehaviour
         PlayerJoinRequest joinRequest = new PlayerJoinRequest();
         joinRequest.name = clientType.ToString();
         channel.SendMessage(joinRequest);
-        playermove = FindObjectOfType<PlayerMovement>();
         DontDestroyOnLoad(this);
     }
     
@@ -168,6 +167,7 @@ public class TCPChannelHandler : MonoBehaviour
             
             case InteractData:
                 Debug.Log((message as InteractData).interactPressed);
+                interactEvent?.Invoke((message as InteractData).interactPressed);
                 break;
         }
         

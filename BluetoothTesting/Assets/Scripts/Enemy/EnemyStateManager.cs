@@ -29,7 +29,7 @@ public class EnemyStateManager : MonoBehaviour
     public event System.Action OnArrival;
     
     
-    public Transform currentDestination;
+    
     [HideInInspector]public Transform[] patrolNodes;
     [SerializeField]private GameObject nodesParent;
     [HideInInspector] public bool isSeeingLight;
@@ -110,7 +110,7 @@ public class EnemyStateManager : MonoBehaviour
     public void Patrol()
     {
         navMeshAgent.acceleration = patrolSpeed;
-        
+        Debug.Log("isPatrolling");
         
         if (patrolNodes == null || patrolNodes.Length == 0) return;
         Vector3 target = patrolNodes[nodeIndex].position;
