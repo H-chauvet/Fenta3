@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(levelIndex);
     }
 
+    
+    
     public void GameOver()
     {
         //TODO: Implement GameOver logic
