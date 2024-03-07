@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: aiLambert8SG
+      name: bucket_outside_closet_group1Mat
     second: {fileID: 2100000, guid: c4f4d6729bd50a34ca3a950d79787cff, type: 2}
   materials:
     materialImportMode: 2
