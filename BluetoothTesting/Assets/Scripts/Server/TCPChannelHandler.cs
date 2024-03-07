@@ -57,6 +57,7 @@ public class TCPChannelHandler : MonoBehaviour
         channel.SendMessage(joinRequest);
         flashlightLogic = FindObjectOfType<FlashlightLogic>();
         playermove = FindObjectOfType<PlayerMovement>();
+        DontDestroyOnLoad(this);
     }
 
 
