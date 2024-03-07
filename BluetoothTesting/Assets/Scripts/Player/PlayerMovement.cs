@@ -98,8 +98,8 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleLookJoysticks()
     {
-        float mouseX = horizontalLook * 0.2f;
-        float mouseY = verticalLook * 0.2f;
+        float mouseX = horizontalLook * 0.55f;
+        float mouseY = verticalLook * 0.55f;
 
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -90, 90);
