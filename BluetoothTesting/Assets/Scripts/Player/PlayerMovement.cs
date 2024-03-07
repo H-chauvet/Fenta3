@@ -10,8 +10,6 @@ public class PlayerMovement : MonoBehaviour
     public float sensitivity = 2.0f;
     public float jumpForce = 8.0f;
     [HideInInspector]public bool canMove = true;
-    private CharacterController characterController;
-
     [SerializeField] private Light spotLight;
     [SerializeField]private float gravity = 9.8f;
     private Camera playerCamera;
