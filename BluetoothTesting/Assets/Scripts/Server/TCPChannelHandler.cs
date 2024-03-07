@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using shared;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+using System.Runtime.CompilerServices;
+
 
 public class TCPChannelHandler : MonoBehaviour
 {
@@ -30,9 +34,16 @@ public class TCPChannelHandler : MonoBehaviour
     public string IP = "127.0.0.1";
     public int port = 55555;
     public ClientType clientType;
-
-    private FlashlightLogic flashlightLogic;
     private PlayerMovement playermove;
+
+    public delegate void LightEvent(float luxValue);
+    public LightEvent lightEvent;
+    public delegate void JoystickEvent(float horizontal, float vertical);
+    public JoystickEvent joystickEvent;
+    public delegate void LookEvent(float horizontal, float vertical);
+    public LookEvent lookEvent;
+    public delegate void InteractEvent(bool interactPressed);
+    public InteractEvent interactEvent;
     
 
     protected void Awake()
@@ -55,11 +66,10 @@ public class TCPChannelHandler : MonoBehaviour
         PlayerJoinRequest joinRequest = new PlayerJoinRequest();
         joinRequest.name = clientType.ToString();
         channel.SendMessage(joinRequest);
-        flashlightLogic = FindObjectOfType<FlashlightLogic>();
         playermove = FindObjectOfType<PlayerMovement>();
         DontDestroyOnLoad(this);
     }
-
+    
 
     void Update()
     {
@@ -68,16 +78,6 @@ public class TCPChannelHandler : MonoBehaviour
         //Temporary code to actually return values while on PC
         if (channel != null)
         {
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                SendString();
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                SendGyroData();
-            }
-
             if (Input.GetKeyDown(KeyCode.E))
             {
                 SendJoystickData();
@@ -90,24 +90,6 @@ public class TCPChannelHandler : MonoBehaviour
         }
     }
 
-
-    //Handling of sending Data
-    public void SendString(string message = "TEST MESSAGE")
-    {
-        ChatMessage msg = new ChatMessage();
-        msg.message = message;
-        SendData(msg);
-    }
-
-    public void SendGyroData(Quaternion gyroRotation = new Quaternion())
-    {
-        GyroData data1 = new GyroData();
-        data1.gX = gyroRotation.x;
-        data1.gY = gyroRotation.y;
-        data1.gZ = gyroRotation.z;
-        data1.gW = gyroRotation.w;
-        SendData(data1);
-    }
 
     public void SendLightData(float lightStrength = 69)
     {
@@ -169,21 +151,19 @@ public class TCPChannelHandler : MonoBehaviour
             
             case LightData:
                 Debug.Log((message as LightData).luxValue);
-                flashlightLogic.isIntensityChanged((message as LightData).luxValue);
+                lightEvent?.Invoke((message as LightData).luxValue);
                 break;
             
             case JoystickData:
                 Debug.Log((message as JoystickData).jX);
                 Debug.Log((message as JoystickData).jY);
-
-                playermove.SetMovementsDirection((message as JoystickData).jX, (message as JoystickData).jY);
+                joystickEvent?.Invoke((message as JoystickData).jX, (message as JoystickData).jY);
                 break;
 
             case LookData:
                 Debug.Log((message as LookData).lX);
                 Debug.Log((message as LookData).lY);
-
-                playermove.SetLookDirection((message as LookData).lX, (message as LookData).lY);
+                lookEvent?.Invoke((message as LookData).lX, (message as LookData).lY);
                 break;
             
             case InteractData:
