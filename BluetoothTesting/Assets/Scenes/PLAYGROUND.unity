@@ -838,6 +838,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &22486111 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4396901856084310559, guid: b0890c02c5032534cb90f3372736e3ec, type: 3}
+  m_PrefabInstance: {fileID: 384309890}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &46768978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6279,6 +6284,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -2.06
       objectReference: {fileID: 0}
+    - target: {fileID: 4396901855515388611, guid: b0890c02c5032534cb90f3372736e3ec, type: 3}
+      propertyPath: lightDetectArea
+      value: 
+      objectReference: {fileID: 22486111}
     - target: {fileID: 4396901856084310553, guid: b0890c02c5032534cb90f3372736e3ec, type: 3}
       propertyPath: m_Radius
       value: 0.20698172
