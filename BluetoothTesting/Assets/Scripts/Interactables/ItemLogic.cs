@@ -14,6 +14,17 @@ public class ItemLogic : MonoBehaviour
     private void Start()
     {
         itemHighlight = GetComponent<ItemHighlight>();
+        TCPChannelHandler.Instance.interactEvent += OnInteractEvent;
+    }
+
+    private void OnInteractEvent(bool isPressed)
+    {
+        HandleInteract(isPressed);
+    }
+
+    void OnDisable()
+    {
+        TCPChannelHandler.Instance.interactEvent -= OnInteractEvent;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,6 +49,15 @@ public class ItemLogic : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && playerInRange)
+        {
+            itemHighlight.RemoveHighlight();
+            pickupLogic.PickupItem(this);
+        }
+    }
+
+    public void HandleInteract(bool isPressed)
+    {
+        if (isPressed == true && playerInRange)
         {
             itemHighlight.RemoveHighlight();
             pickupLogic.PickupItem(this);

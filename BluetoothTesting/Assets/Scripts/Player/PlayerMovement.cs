@@ -11,8 +11,6 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 8.0f;
     [HideInInspector]public bool canMove = true;
     [HideInInspector]public CharacterController characterController;
-    
-
     [SerializeField] private Light spotLight;
     [SerializeField]private float gravity = 9.8f;
     private Camera playerCamera;
@@ -29,6 +27,25 @@ public class PlayerMovement : MonoBehaviour
 
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
+
+        TCPChannelHandler.Instance.joystickEvent += OnJoystickEvent;
+        TCPChannelHandler.Instance.lookEvent += OnLookEvent;
+    }
+
+    private void OnJoystickEvent(float horizontal, float vertical)
+    {
+        SetMovementsDirection(horizontal, vertical);
+    }
+
+    private void OnLookEvent(float horizontal, float vertical)
+    {
+        SetLookDirection(horizontal, vertical);
+    }
+
+    void OnDisable()
+    {
+        TCPChannelHandler.Instance.joystickEvent -= OnJoystickEvent;
+        TCPChannelHandler.Instance.lookEvent -= OnLookEvent;
     }
 
     void Update()
