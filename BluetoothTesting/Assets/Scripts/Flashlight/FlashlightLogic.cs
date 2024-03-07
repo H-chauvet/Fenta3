@@ -86,12 +86,9 @@ public class FlashlightLogic : MonoBehaviour
         }
     }
 
-    public void isIntensityChanged(bool value)
+    public void isIntensityChanged(float value)
     {
-        if (value == true)
-            floatValue += 3f;
-        else
-            floatValue -= 3f;
+            floatValue = value;
     }
 
     void AttachSpheres()
