@@ -3,7 +3,12 @@ guid: a8c05acac1630b840b9f791c5aa8e8e1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Closed_big_box3Mat
+    second: {fileID: 2100000, guid: f64847f680e19714b90914aee90f5a6f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
