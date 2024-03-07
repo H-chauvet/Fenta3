@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Light spotLight;
     [SerializeField]private float gravity = 9.8f;
     private Camera playerCamera;
+    [HideInInspector]public CharacterController characterController;
     private float rotationX = 0;
     private float horizontalJoysticks = 0;
     private float verticalJoysticks = 0;
@@ -64,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 moveDirection = new Vector3(horizontal, 0, vertical).normalized;
         Vector3 move = transform.TransformDirection(moveDirection) * walkSpeed;
+        
 
         move.y = characterController.velocity.y - gravity;
         
