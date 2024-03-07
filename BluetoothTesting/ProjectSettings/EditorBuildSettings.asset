@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Cinematic.unity
     guid: acb1006d420db754e92dce8b59a501ee
+  - enabled: 1
+    path: Assets/Scenes/PLAYGROUND.unity
+    guid: b907215cd769bbf458508e21b544b702
   m_configObjects: {}

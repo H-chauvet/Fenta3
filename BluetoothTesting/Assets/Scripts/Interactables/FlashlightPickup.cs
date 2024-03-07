@@ -12,6 +12,17 @@ public class FlashlightPickup : MonoBehaviour
     private void Start()
     {
         itemHighlight = GetComponent<ItemHighlight>();
+        TCPChannelHandler.Instance.interactEvent += OnInteractEvent;
+    }
+
+    private void OnInteractEvent(bool isPressed)
+    {
+        HandleInteract(isPressed);
+    }
+
+    void OnDisable()
+    {
+        TCPChannelHandler.Instance.interactEvent -= OnInteractEvent;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,6 +51,17 @@ public class FlashlightPickup : MonoBehaviour
             itemHighlight.RemoveHighlight();
             flashlight.SetActive(true);
             
+            Destroy(gameObject);
+        }
+    }
+
+    public void HandleInteract(bool isPressed)
+    {
+            
+        if (isPressed == true && playerInRange)
+        {
+            itemHighlight.RemoveHighlight();
+            flashlight.SetActive(true);
             Destroy(gameObject);
         }
     }

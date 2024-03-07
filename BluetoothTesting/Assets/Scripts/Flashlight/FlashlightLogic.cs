@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class FlashlightLogic : MonoBehaviour
@@ -20,6 +22,18 @@ public class FlashlightLogic : MonoBehaviour
         SetLightProperties();
         CR = GetComponent<ConeRaycaster>();
         colliders = new List<SphereCollider>();
+
+        TCPChannelHandler.Instance.lightEvent += OnLightEvent;
+    }
+
+    private void OnLightEvent(float luxValue)
+    {
+        isIntensityChanged(luxValue);
+    }
+
+    void OnDisable()
+    {
+        TCPChannelHandler.Instance.lightEvent -= OnLightEvent;
     }
 
     void Update()
