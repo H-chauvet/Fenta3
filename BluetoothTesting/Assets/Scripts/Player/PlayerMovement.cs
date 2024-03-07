@@ -27,6 +27,25 @@ public class PlayerMovement : MonoBehaviour
 
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
+
+        TCPChannelHandler.Instance.joystickEvent += OnJoystickEvent;
+        TCPChannelHandler.Instance.lookEvent += OnLookEvent;
+    }
+
+    private void OnJoystickEvent(float horizontal, float vertical)
+    {
+        SetMovementsDirection(horizontal, vertical);
+    }
+
+    private void OnLookEvent(float horizontal, float vertical)
+    {
+        SetLookDirection(horizontal, vertical);
+    }
+
+    void OnDisable()
+    {
+        TCPChannelHandler.Instance.joystickEvent -= OnJoystickEvent;
+        TCPChannelHandler.Instance.lookEvent -= OnLookEvent;
     }
 
     void Update()
