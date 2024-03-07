@@ -65,4 +65,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(lastLevel.levelIndex);
     }
+    
+    
 }
