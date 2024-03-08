@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject light;
     public GameObject[] enemyArray;
-    public GameObject gameOverScreen;
+    
     
     
     private static GameManager _instance;
@@ -54,12 +54,6 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //TODO: Implement GameOver logic
-        player.GetComponent<PlayerMovement>().canMove = false;
-        
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        
-        gameOverScreen.SetActive(true);
     }
 
     public void WinGame()
