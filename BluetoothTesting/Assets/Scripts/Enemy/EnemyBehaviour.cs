@@ -132,6 +132,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("enter collision player");
             GameManager.Instance.GameOver();
             Destroy(gameObject);
         }

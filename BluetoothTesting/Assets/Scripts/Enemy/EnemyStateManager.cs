@@ -110,7 +110,7 @@ public class EnemyStateManager : MonoBehaviour
     public void Patrol()
     {
         navMeshAgent.acceleration = patrolSpeed;
-        Debug.Log("isPatrolling");
+        //Debug.Log("isPatrolling");
         
         if (patrolNodes == null || patrolNodes.Length == 0) return;
         Vector3 target = patrolNodes[nodeIndex].position;

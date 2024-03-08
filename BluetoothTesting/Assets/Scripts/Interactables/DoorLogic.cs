@@ -32,7 +32,7 @@ public class DoorLogic : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player entered");
+            //Debug.Log("Player entered");
             pickupLogic = other.GetComponent<PickupLogic>();
             playerInRange = true;
             if (pickupLogic.currentItem == null) return;
