@@ -61,7 +61,7 @@ public class Cinematictransition : MonoBehaviour
             camera.fieldOfView += POVincrement;
         }
 
-        if (distance > stoppingDistance + 1 && panel.alpha >= 1)
+        if (distance > stoppingDistance + 10)
         {
             SceneManager.LoadScene("CinematicOutro");
         }
