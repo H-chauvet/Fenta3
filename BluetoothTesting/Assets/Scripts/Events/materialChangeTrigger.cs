@@ -5,7 +5,7 @@ using UnityEngine;
 public class materialChangeTrigger : MonoBehaviour
 {
     public Material scuffedMaterial;
-    public string assetName = "Plane";
+    public string assetName = "janitor_hallway";
 
     private void OnTriggerEnter(Collider other)
     {
