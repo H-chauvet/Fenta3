@@ -55,12 +55,12 @@ public class DoorLogic : MonoBehaviour
     private void Update()
     {
         
-        // if (pickupLogic == null || pickupLogic.currentItem == null) return;
-        // if (Input.GetKeyDown(KeyCode.E) && playerInRange && pickupLogic.currentItem.tiedDoor == gameObject)
-        // {
-        //     itemHighlight.RemoveHighlight();
-        //     pickupLogic.UseItem(this);
-        // }
+        if (pickupLogic == null || pickupLogic.currentItem == null) return;
+        if (Input.GetKeyDown(KeyCode.E) && playerInRange && pickupLogic.currentItem.tiedDoor == gameObject)
+        {
+            itemHighlight.RemoveHighlight();
+            pickupLogic.UseItem(this);
+        }
     }
 
     public void HandleInteract(bool isPressed)
