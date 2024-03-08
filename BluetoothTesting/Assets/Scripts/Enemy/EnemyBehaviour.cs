@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -125,6 +126,15 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         return dick;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GameManager.Instance.GameOver();
+            Destroy(gameObject);
+        }
     }
 
     // public void CheckPlayerExtremities()
