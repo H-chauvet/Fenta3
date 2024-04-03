@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,8 @@ public class PlayerSoundController : MonoBehaviour
     private AudioSource woodSurfaceAudio;
     private AudioSource metalSurfaceAudio;
 
-    private bool pulaCaLemnu;
-    private bool pulaCaTeava;
+    public bool pulaCaLemnu;
+    public bool pulaCaTeava;
     
     public PlayerMovement playerMovement;
 
@@ -29,34 +30,52 @@ public class PlayerSoundController : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetKeyDown(KeyCode.W)){
+        
+        
+        if(Mathf.Abs(Input.GetAxis("Horizontal"))>Mathf.Epsilon || Mathf.Abs(Input.GetAxis("Vertical"))>Mathf.Epsilon){
             if(pulaCaLemnu){
-                Debug.Log("w is pressed");
+                //Debug.Log("w is pressed");
+                if(!woodSurfaceAudio.isPlaying)woodSurfaceAudio.Play();
                 
-                woodSurfaceAudio.Play();
             }
             else if(pulaCaTeava){
-                metalSurfaceAudio.Play();
+                if(!metalSurfaceAudio.isPlaying)metalSurfaceAudio.Play();
             }
         }
-        if(Input.GetKeyUp(KeyCode.W))
+        if(Mathf.Abs(Input.GetAxis("Horizontal")) <= Mathf.Epsilon && Mathf.Abs(Input.GetAxis("Vertical"))<= Mathf.Epsilon)
             {
+                //Debug.Log("w is released");
                 if(pulaCaLemnu){
-                Debug.Log("w is released");
                 woodSurfaceAudio.Stop();
+                
+            }else if(pulaCaTeava){
+                metalSurfaceAudio.Stop();
             }
                 
             }
         
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Entering on Object: " + collision.gameObject);
+        Debug.Log("Entered object has tag: " + collision.gameObject.tag);
+    }
+    
+    private void OnCollisionExit(Collision collision)
+    {
+        Debug.Log("Exiting Object: " + collision.gameObject);
+        Debug.Log("Exited object has tag: " + collision.gameObject.tag);
+    }
+
     void OnCollisionStay(Collision col)
     {
-        Debug.Log(col.gameObject);
+        //Debug.Log(col.gameObject);
         if(col.gameObject.CompareTag("wood"))
         {
             pulaCaLemnu = true;
             pulaCaTeava = false;
+            metalSurfaceAudio.Stop();
             // if(Input.GetKeyDown(KeyCode.W))
             // {
                 
@@ -67,10 +86,9 @@ public class PlayerSoundController : MonoBehaviour
         {
             pulaCaTeava = true;
             pulaCaLemnu = false;
-                Debug.Log("fututten nas");
-            if(playerMovement.characterController.velocity.x != 0)
-            {
-            }
+            woodSurfaceAudio.Stop();
+               // Debug.Log("fututten nas");
+            
         }
         else{
             pulaCaLemnu = false;

@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Animations;
 
 [RequireComponent(typeof(Animator))]
 public class EnemyStateManager : MonoBehaviour
@@ -35,7 +35,7 @@ public class EnemyStateManager : MonoBehaviour
     [HideInInspector] public bool isSeeingLight;
     [HideInInspector] public bool isSeeingPlayer;
     
-    [SerializeField]private RuntimeAnimatorController FSM;
+    [SerializeField]private AnimatorController FSM;
 
     private NavMeshAgent navMeshAgent;
     private Animator anim;
@@ -174,7 +174,7 @@ public class EnemyStateManager : MonoBehaviour
                 else if (hitDick.collider.CompareTag("LightArea"))
                 {
                     Debug.Log("Chasing light");
-                    //enemyBehaviour.CheckPlayerExtremities();
+                    enemyBehaviour.CheckPlayerExtremities();
                     hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
                 }
             }

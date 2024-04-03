@@ -14,7 +14,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PLAYGROUND.unity
     guid: b907215cd769bbf458508e21b544b702
-  - enabled: 1
-    path: Assets/Scenes/CinematicOutro.unity
-    guid: 07fde91fbb1efa64dafed0b892f01e6c
   m_configObjects: {}
