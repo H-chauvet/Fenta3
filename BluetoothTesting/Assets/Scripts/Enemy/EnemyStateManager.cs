@@ -206,6 +206,7 @@ public class EnemyStateManager : MonoBehaviour
             {
                 isSeeingLight = true;
             }
+            
         }
         else
         {

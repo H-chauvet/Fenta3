@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -28,7 +29,7 @@ public class EnemyBehaviour : MonoBehaviour
     private ConeRaycaster playerExtremities;
     //public bool isTrackingLight;
     //public bool isTrackingPlayer;
-        
+    public bool seesPlayer;
         
     #region Extremities
     //I know there's probably a way better way of doing this, but this will suffice for now
@@ -83,8 +84,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        UpdateExtremities();
+        UpdateExtremities(); 
         ShootRaycasts();
+        seesPlayer = DirectPlayerSight();
         //enemyStateManager.currentState = _currentState;
         //CheckArrival();
     }
@@ -127,6 +129,27 @@ public class EnemyBehaviour : MonoBehaviour
         return dick;
     }
 
+    public bool DirectPlayerSight()
+    {
+        Vector3 direction = (GameManager.Instance.player.transform.position - transform.position).normalized;
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, direction);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            
+            if (hit.collider.CompareTag("Player"))
+            {
+                Debug.Log("True");
+                return true;
+            }
+
+            return false;
+        }
+
+        Debug.Log("Ray not hitting anything");
+        return false;
+    }
+
     public void CheckPlayerExtremities()
     {
         playerExtremities = GameManager.Instance.light.GetComponent<ConeRaycaster>();
@@ -158,5 +181,7 @@ public class EnemyBehaviour : MonoBehaviour
                 Gizmos.DrawLine(extremity.position, oExtremity.position);
             }
         }
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, GameManager.Instance.player.transform.position);
     }
 }
