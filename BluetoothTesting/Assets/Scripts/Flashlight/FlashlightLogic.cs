@@ -78,7 +78,7 @@ public class FlashlightLogic : MonoBehaviour
             {
                 floatValue = 5f;
                 hasReachedMax = true;
-                Debug.Log("Light limit reached");
+                //Debug.Log("Light limit reached");
                 
             }
             

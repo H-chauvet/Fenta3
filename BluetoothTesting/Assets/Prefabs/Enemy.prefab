@@ -208,11 +208,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf746d72ca6d4b45a94510e9fd0ae60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PhysicalObjects:
+    serializedVersion: 2
+    m_Bits: 128
   forwardDistance: 8
   backDistance: 2
   forwardOffset: 5.5
   sidesOffset: 5.3
   backOffset: 3.5
+  DirectPlayerSight: 0
 --- !u!114 &3612589916327587794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,12 +230,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastPOSRefreshRate: 1
-  trackLingerDelay: 3
   patrolSpeed: 4
   stalkingSpeed: 5
   chaseSpeed: 8
   currentState: 0
-  currentDestination: {fileID: 0}
   patrolNodes: []
   nodesParent: {fileID: 0}
   isSeeingLight: 0

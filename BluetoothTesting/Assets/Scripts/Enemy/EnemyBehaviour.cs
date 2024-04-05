@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,7 +12,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(EnemyStateManager))]
 public class EnemyBehaviour : MonoBehaviour
 {
-
+    public LayerMask PhysicalObjects;
         
     #region ExtremityOffsets
     [Header("Extremity Offsets")] 
@@ -26,9 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
     private EnemyStateManager.EnemyState _currentState;
 
     private ConeRaycaster playerExtremities;
-    //public bool isTrackingLight;
-    //public bool isTrackingPlayer;
-        
+    
         
     #region Extremities
     //I know there's probably a way better way of doing this, but this will suffice for now
@@ -83,7 +82,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        UpdateExtremities();
+        UpdateExtremities(); 
+        CheckPlayerSight();
         ShootRaycasts();
         //enemyStateManager.currentState = _currentState;
         //CheckArrival();
@@ -127,6 +127,36 @@ public class EnemyBehaviour : MonoBehaviour
         return dick;
     }
 
+    public bool DirectPlayerSight;
+
+    void CheckPlayerSight()
+    {
+        Vector3 direction = (GameManager.Instance.player.transform.position - transform.position).normalized;
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, direction);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, PhysicalObjects))
+        {
+            
+            if (hit.collider.CompareTag("Player"))
+            {
+                //Debug.Log("True");
+                DirectPlayerSight = true;
+            }
+            else
+            {
+                Debug.Log(hit.collider.tag);
+                DirectPlayerSight = false;
+            }
+
+            
+        }
+        else
+        {
+            Debug.Log("Ray not hitting anything");
+            DirectPlayerSight = false;
+        }
+    }
+
     public void CheckPlayerExtremities()
     {
         playerExtremities = GameManager.Instance.light.GetComponent<ConeRaycaster>();
@@ -142,7 +172,7 @@ public class EnemyBehaviour : MonoBehaviour
         
         if (midHits.Length != 0 && midHits[0].collider.CompareTag("Extremity"))
         {
-            Debug.Log("Seeing midpoint");
+            //Debug.Log("Seeing midpoint");
         }
     }
     
@@ -158,5 +188,7 @@ public class EnemyBehaviour : MonoBehaviour
                 Gizmos.DrawLine(extremity.position, oExtremity.position);
             }
         }
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, GameManager.Instance.player.transform.position);
     }
 }
