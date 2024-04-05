@@ -12,7 +12,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(EnemyStateManager))]
 public class EnemyBehaviour : MonoBehaviour
 {
-
+    public LayerMask PhysicalObjects;
         
     #region ExtremityOffsets
     [Header("Extremity Offsets")] 
@@ -27,9 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
     private EnemyStateManager.EnemyState _currentState;
 
     private ConeRaycaster playerExtremities;
-    //public bool isTrackingLight;
-    //public bool isTrackingPlayer;
-    public bool seesPlayer;
+    
         
     #region Extremities
     //I know there's probably a way better way of doing this, but this will suffice for now
@@ -85,8 +83,8 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
         UpdateExtremities(); 
+        CheckPlayerSight();
         ShootRaycasts();
-        seesPlayer = DirectPlayerSight();
         //enemyStateManager.currentState = _currentState;
         //CheckArrival();
     }
@@ -129,25 +127,34 @@ public class EnemyBehaviour : MonoBehaviour
         return dick;
     }
 
-    public bool DirectPlayerSight()
+    public bool DirectPlayerSight;
+
+    void CheckPlayerSight()
     {
         Vector3 direction = (GameManager.Instance.player.transform.position - transform.position).normalized;
         RaycastHit hit;
         Ray ray = new Ray(transform.position, direction);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, PhysicalObjects))
         {
             
             if (hit.collider.CompareTag("Player"))
             {
-                Debug.Log("True");
-                return true;
+                //Debug.Log("True");
+                DirectPlayerSight = true;
+            }
+            else
+            {
+                Debug.Log(hit.collider.tag);
+                DirectPlayerSight = false;
             }
 
-            return false;
+            
         }
-
-        Debug.Log("Ray not hitting anything");
-        return false;
+        else
+        {
+            Debug.Log("Ray not hitting anything");
+            DirectPlayerSight = false;
+        }
     }
 
     public void CheckPlayerExtremities()
@@ -165,7 +172,7 @@ public class EnemyBehaviour : MonoBehaviour
         
         if (midHits.Length != 0 && midHits[0].collider.CompareTag("Extremity"))
         {
-            Debug.Log("Seeing midpoint");
+            //Debug.Log("Seeing midpoint");
         }
     }
     

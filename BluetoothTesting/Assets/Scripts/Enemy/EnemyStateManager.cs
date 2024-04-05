@@ -162,23 +162,31 @@ public class EnemyStateManager : MonoBehaviour
         SphereCollider hitCollider = null;
         Dictionary<Transform, RaycastHit[]> bigDick = new();
         bigDick = enemyBehaviour.ShootRaycasts();
-        foreach (KeyValuePair<Transform, RaycastHit[]> smallDick in bigDick)
+        if (enemyBehaviour.DirectPlayerSight)
         {
-            foreach (RaycastHit hitDick in smallDick.Value)
+            foreach (KeyValuePair<Transform, RaycastHit[]> smallDick in bigDick)
             {
-                if (hitDick.collider.CompareTag("Player"))
+                foreach (RaycastHit hitDick in smallDick.Value)
                 {
-                    Debug.Log("Chasing player");
-                    hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
-                }
-                else if (hitDick.collider.CompareTag("LightArea"))
-                {
-                    Debug.Log("Chasing light");
-                    enemyBehaviour.CheckPlayerExtremities();
-                    hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
+                    if (hitDick.collider.CompareTag("Player"))
+                    {
+                        Debug.Log("Chasing player");
+                        hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
+                    }
+                    else if (hitDick.collider.CompareTag("LightArea"))
+                    {
+                        Debug.Log("Chasing light");
+                        enemyBehaviour.CheckPlayerExtremities();
+                        hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
+                    }
                 }
             }
         }
+        else
+        {
+            Debug.Log("Can't see player");
+        }
+        
 
         return hitCollider;
     }
@@ -186,6 +194,11 @@ public class EnemyStateManager : MonoBehaviour
     void GoToPlayer()
     {
         SphereCollider hitSphere = LookForPlayer();
+        // if (enemyBehaviour.DirectPlayerSight())
+        // {
+        //     Debug.Log("ah");
+        //     hitSphere = LookForPlayer();
+        // }
         if (hitSphere != null)
         {
             if (timeSinceLastRefresh <= lastPOSRefreshRate)
