@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class Cinematictransition : MonoBehaviour
 {
@@ -59,11 +58,6 @@ public class Cinematictransition : MonoBehaviour
         {
              _player.GetComponent<PlayerMovement>().characterController.Move(direction * cinMoveSpeed * Time.deltaTime);
             camera.fieldOfView += POVincrement;
-        }
-
-        if (distance > stoppingDistance + 10)
-        {
-            SceneManager.LoadScene("CinematicOutro");
         }
 
     }

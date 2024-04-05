@@ -32,7 +32,7 @@ public class DoorLogic : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //Debug.Log("Player entered");
+            Debug.Log("Player entered");
             pickupLogic = other.GetComponent<PickupLogic>();
             playerInRange = true;
             if (pickupLogic.currentItem == null) return;
@@ -55,12 +55,12 @@ public class DoorLogic : MonoBehaviour
     private void Update()
     {
         
-        if (pickupLogic == null || pickupLogic.currentItem == null) return;
-        if (Input.GetKeyDown(KeyCode.E) && playerInRange && pickupLogic.currentItem.tiedDoor == gameObject)
-        {
-            itemHighlight.RemoveHighlight();
-            pickupLogic.UseItem(this);
-        }
+         if (pickupLogic == null || pickupLogic.currentItem == null) return;
+         if (Input.GetKeyDown(KeyCode.E) && playerInRange && pickupLogic.currentItem.tiedDoor == gameObject)
+         {
+             itemHighlight.RemoveHighlight();
+             pickupLogic.UseItem(this);
+         }
     }
 
     public void HandleInteract(bool isPressed)

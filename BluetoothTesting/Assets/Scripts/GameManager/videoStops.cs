@@ -17,21 +17,10 @@ public class videoStops : MonoBehaviour
 
     IEnumerator playVideo()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(3f);
         if (!videoPlayer.isPlaying)
         {
-            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
-            else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
-            else
-            {
-                SceneManager.LoadScene(0);
-            }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }

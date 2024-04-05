@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -128,34 +127,24 @@ public class EnemyBehaviour : MonoBehaviour
         return dick;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void CheckPlayerExtremities()
     {
-        if (other.CompareTag("Player"))
+        playerExtremities = GameManager.Instance.light.GetComponent<ConeRaycaster>();
+        Transform playerMidLength = playerExtremities.midLength;
+        Transform playerCenterBase = playerExtremities.centerBase;
+        Transform playerRightExtremity = playerExtremities.basePoints[2];
+        Transform playerLeftExtremity = playerExtremities.basePoints[3];
+        
+        Vector3 midDirection = (playerMidLength.position - transform.position).normalized;
+        float midDistance = Vector3.Distance(transform.position, playerMidLength.position);
+
+        RaycastHit[] midHits = Physics.RaycastAll(transform.position, midDirection, midDistance);
+        
+        if (midHits.Length != 0 && midHits[0].collider.CompareTag("Extremity"))
         {
-            Debug.Log("enter collision player");
-            GameManager.Instance.GameOver();
-            Destroy(gameObject);
+            Debug.Log("Seeing midpoint");
         }
     }
-
-    // public void CheckPlayerExtremities()
-    // {
-    //     playerExtremities = GameManager.Instance.light.GetComponent<ConeRaycaster>();
-    //     Transform playerMidLength = playerExtremities.midLength;
-    //     Transform playerCenterBase = playerExtremities.centerBase;
-    //     Transform playerRightExtremity = playerExtremities.basePoints[2];
-    //     Transform playerLeftExtremity = playerExtremities.basePoints[3];
-    //     
-    //     Vector3 midDirection = (playerMidLength.position - transform.position).normalized;
-    //     float midDistance = Vector3.Distance(transform.position, playerMidLength.position);
-    //
-    //     RaycastHit[] midHits = Physics.RaycastAll(transform.position, midDirection, midDistance);
-    //     
-    //     if (midHits.Length != 0 && midHits[0].collider.CompareTag("Extremity"))
-    //     {
-    //         Debug.Log("Seeing midpoint");
-    //     }
-    // }
     
  void OnDrawGizmos()
     {

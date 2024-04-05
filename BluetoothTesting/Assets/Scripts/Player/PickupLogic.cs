@@ -23,11 +23,10 @@ public class PickupLogic : MonoBehaviour
             currentItem = pickedUpItem;
             hasItem = true;
             Transform currentItemTransform = currentItem.gameObject.transform;
-            currentItemTransform.rotation = new Quaternion();
             currentItemTransform.SetParent(gameObject.transform);
             currentItemTransform.localPosition = new Vector3();
             currentItemTransform.localPosition += new Vector3(xOffset, yOffset, zOffset); 
-            currentItemTransform.localScale = transform.localScale / scaleDivider;
+            //currentItemTransform.localScale = transform.localScale / scaleDivider;
         }
         
     }

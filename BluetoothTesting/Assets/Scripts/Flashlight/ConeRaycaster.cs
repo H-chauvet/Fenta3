@@ -235,7 +235,7 @@ public class ConeRaycaster : MonoBehaviour
             if (!col.gameObject.CompareTag("Enemy"))
             {
                 col.gameObject.tag = "Untagged";
-                Debug.Log(col.gameObject);
+                //Debug.Log(col.gameObject);
             }
 
             if (col.gameObject.CompareTag("Extremity"))
