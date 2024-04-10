@@ -184,7 +184,7 @@ public class EnemyStateManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Can't see player");
+            //Debug.Log("Can't see player");
         }
         
 

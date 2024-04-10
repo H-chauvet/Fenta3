@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,6 +45,15 @@ public class EnemyBehaviour : MonoBehaviour
         
     void Start()
     {
+        try
+        {
+            PhysicalObjects = LayerMask.NameToLayer("Physical");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Could not find a LayerMask with the name Physical");
+            throw;
+        }
         InitializeExtremities();
         //_currentState = enemyStateManager.currentState;
         enemyStateManager = GetComponent<EnemyStateManager>();
@@ -144,7 +154,7 @@ public class EnemyBehaviour : MonoBehaviour
             }
             else
             {
-                Debug.Log(hit.collider.tag);
+                //Debug.Log(hit.collider.tag);
                 DirectPlayerSight = false;
             }
 
@@ -152,7 +162,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
-            Debug.Log("Ray not hitting anything");
+            //Debug.Log("Ray not hitting anything");
             DirectPlayerSight = false;
         }
     }
