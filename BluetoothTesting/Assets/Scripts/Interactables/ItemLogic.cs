@@ -31,7 +31,7 @@ public class ItemLogic : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player entered");
+            //Debug.Log("Player entered");
             pickupLogic = other.GetComponent<PickupLogic>();
             itemHighlight.ApplyHighlight();
             playerInRange = true;
@@ -40,7 +40,7 @@ public class ItemLogic : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Player exited");
+       //Debug.Log("Player exited");
         pickupLogic = null;
         itemHighlight.RemoveHighlight();
         playerInRange = false;

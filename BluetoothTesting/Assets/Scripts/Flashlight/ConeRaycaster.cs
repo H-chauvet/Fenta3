@@ -198,6 +198,7 @@ public class ConeRaycaster : MonoBehaviour
 
         public SphereCollider CreateSphere()
         {
+            lightDetectArea.tag = "LightArea";
             SphereCollider newSphere = lightDetectArea.AddComponent<SphereCollider>();
             newSphere.isTrigger = true;
             Vector3 pos = (centerBase.position + tip.transform.position) / 2;

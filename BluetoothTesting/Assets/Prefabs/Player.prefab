@@ -125,6 +125,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotLight: {fileID: 4396901855515388614}
   rangeAmplifier: 1
+  tip: {fileID: 0}
+  centerBase: {fileID: 0}
+  midLength: {fileID: 0}
+  basePoints: []
   lightDetectArea: {fileID: 0}
 --- !u!1 &4396901856084310559
 GameObject:
@@ -135,7 +139,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4396901856084310558}
-  - component: {fileID: 4396901856084310553}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: LightArea
@@ -158,27 +161,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4396901855515388609}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4396901856084310553
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4396901856084310559}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4396901856158516804
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,9 +383,10 @@ MonoBehaviour:
   walkSpeed: 5
   sensitivity: 1
   jumpForce: 1
+  canMove: 1
+  characterController: {fileID: 0}
   spotLight: {fileID: 4396901855515388614}
   gravity: 4
-  characterController: {fileID: 0}
 --- !u!143 &4396901856451068059
 CharacterController:
   m_ObjectHideFlags: 0
@@ -444,6 +427,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   woodSound: {fileID: 0}
   metalSound: {fileID: 0}
+  pulaCaLemnu: 0
+  pulaCaTeava: 0
   playerMovement: {fileID: 4396901856451068056}
 --- !u!82 &2353648473483879504
 AudioSource:

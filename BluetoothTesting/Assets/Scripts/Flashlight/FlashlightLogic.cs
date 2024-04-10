@@ -107,7 +107,7 @@ public class FlashlightLogic : MonoBehaviour
 
     void AttachSpheres()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
             if (floatValue <= 5)
             {

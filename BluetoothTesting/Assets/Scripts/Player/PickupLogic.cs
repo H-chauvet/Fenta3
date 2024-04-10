@@ -19,7 +19,7 @@ public class PickupLogic : MonoBehaviour
     {
         if (!hasItem)
         {
-            Debug.Log("Item picked up");
+            //Debug.Log("Item picked up");
             currentItem = pickedUpItem;
             hasItem = true;
             Transform currentItemTransform = currentItem.gameObject.transform;
@@ -35,7 +35,7 @@ public class PickupLogic : MonoBehaviour
     {
         if (currentItem.tiedDoor = targetDoor.gameObject)
         {
-            Debug.Log("Item used");
+            //Debug.Log("Item used");
             Destroy(currentItem.gameObject);
             hasItem = false;
             Destroy(targetDoor.gameObject);
