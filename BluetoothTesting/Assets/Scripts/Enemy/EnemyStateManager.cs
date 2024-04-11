@@ -194,11 +194,7 @@ public class EnemyStateManager : MonoBehaviour
     void GoToPlayer()
     {
         SphereCollider hitSphere = LookForPlayer();
-        // if (enemyBehaviour.DirectPlayerSight())
-        // {
-        //     Debug.Log("ah");
-        //     hitSphere = LookForPlayer();
-        // }
+        
         if (hitSphere != null)
         {
             if (timeSinceLastRefresh <= lastPOSRefreshRate)
