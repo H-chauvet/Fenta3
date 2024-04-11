@@ -184,7 +184,7 @@ public class EnemyStateManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Can't see player");
+            //Debug.Log("Can't see player");
         }
         
 
@@ -194,11 +194,7 @@ public class EnemyStateManager : MonoBehaviour
     void GoToPlayer()
     {
         SphereCollider hitSphere = LookForPlayer();
-        // if (enemyBehaviour.DirectPlayerSight())
-        // {
-        //     Debug.Log("ah");
-        //     hitSphere = LookForPlayer();
-        // }
+        
         if (hitSphere != null)
         {
             if (timeSinceLastRefresh <= lastPOSRefreshRate)

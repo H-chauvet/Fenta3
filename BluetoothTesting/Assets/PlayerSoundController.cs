@@ -55,18 +55,7 @@ public class PlayerSoundController : MonoBehaviour
             }
         
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Entering on Object: " + collision.gameObject);
-        Debug.Log("Entered object has tag: " + collision.gameObject.tag);
-    }
     
-    private void OnCollisionExit(Collision collision)
-    {
-        Debug.Log("Exiting Object: " + collision.gameObject);
-        Debug.Log("Exited object has tag: " + collision.gameObject.tag);
-    }
 
     void OnCollisionStay(Collision col)
     {
@@ -93,7 +82,7 @@ public class PlayerSoundController : MonoBehaviour
         else{
             pulaCaLemnu = false;
             pulaCaTeava = false;
-            Debug.Log("Nu e pulaaa");
+            //Debug.Log("Nu e pulaaa");
         }
     }
 }

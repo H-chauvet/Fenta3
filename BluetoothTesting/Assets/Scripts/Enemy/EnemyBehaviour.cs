@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,6 +45,7 @@ public class EnemyBehaviour : MonoBehaviour
         
     void Start()
     {
+        
         InitializeExtremities();
         //_currentState = enemyStateManager.currentState;
         enemyStateManager = GetComponent<EnemyStateManager>();
@@ -139,7 +141,7 @@ public class EnemyBehaviour : MonoBehaviour
             
             if (hit.collider.CompareTag("Player"))
             {
-                //Debug.Log("True");
+                Debug.Log("True");
                 DirectPlayerSight = true;
             }
             else
@@ -152,7 +154,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
-            Debug.Log("Ray not hitting anything");
+            //Debug.Log("Ray not hitting anything");
             DirectPlayerSight = false;
         }
     }
@@ -189,6 +191,7 @@ public class EnemyBehaviour : MonoBehaviour
             }
         }
         Gizmos.color = Color.green;
+        if (GameManager.Instance == null) return;
         Gizmos.DrawLine(transform.position, GameManager.Instance.player.transform.position);
     }
 }
