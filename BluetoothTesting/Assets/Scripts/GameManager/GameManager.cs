@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //TODO: Implement GameOver logic
+        SceneManager.LoadScene("GameOver");
     }
 
     public void WinGame()

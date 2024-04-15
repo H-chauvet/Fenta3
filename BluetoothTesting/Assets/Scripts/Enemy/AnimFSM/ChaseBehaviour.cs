@@ -12,18 +12,20 @@ public class ChaseBehaviour : StateMachineBehaviour
         thisObject = animator.gameObject;
         ESM = thisObject.GetComponent<EnemyStateManager>();
         ESM.currentState = EnemyStateManager.EnemyState.CHASING;
+        if(!ESM.enemySightSource.isPlaying)ESM.enemySightSource.Play();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         ESM.Chase();
+        if(!ESM.enemyChaseSource.isPlaying)ESM.enemyChaseSource.Play();
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        ESM.enemyChaseSource.Stop();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

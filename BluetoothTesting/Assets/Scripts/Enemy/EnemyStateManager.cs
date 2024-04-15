@@ -46,6 +46,16 @@ public class EnemyStateManager : MonoBehaviour
         
     }
     
+    #region EnemySounds
+
+    [SerializeField] private AudioClip enemyWalking;
+    [SerializeField] private AudioClip enemySight;
+    [SerializeField] private AudioClip enemyChasing;
+
+    private AudioSource enemyWalkSource;
+    [HideInInspector]public AudioSource enemySightSource;
+    [HideInInspector]public AudioSource enemyChaseSource;
+    #endregion
     
     private Transform lastSeenLocation;
     private float timeSinceLastRefresh;
@@ -63,6 +73,17 @@ public class EnemyStateManager : MonoBehaviour
         }
         OnArrival += HandleArrival;
         anim.runtimeAnimatorController = FSM;
+        
+        
+        //Initialize audio
+        enemyWalkSource = gameObject.AddComponent<AudioSource>();
+        enemyWalkSource.clip = enemyWalking;
+        
+        enemySightSource = gameObject.AddComponent<AudioSource>();
+        enemySightSource.clip = enemySight;
+        
+        enemyChaseSource = gameObject.AddComponent<AudioSource>();
+        enemyChaseSource.clip = enemyChasing;
     }
 
     
@@ -85,6 +106,7 @@ public class EnemyStateManager : MonoBehaviour
         }
         CheckArrival();
         UpdateAnimatorParams();
+        if(!enemyWalkSource.isPlaying)enemyWalkSource.Play();
     }
 
     void CheckArrival()

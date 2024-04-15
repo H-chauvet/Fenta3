@@ -159,6 +159,14 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
+
     public void CheckPlayerExtremities()
     {
         playerExtremities = GameManager.Instance.light.GetComponent<ConeRaycaster>();

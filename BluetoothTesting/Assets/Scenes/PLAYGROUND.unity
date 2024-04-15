@@ -13659,6 +13659,11 @@ MonoBehaviour:
   isSeeingLight: 0
   isSeeingPlayer: 0
   FSM: {fileID: 9100000, guid: ebef5875d94bf4a4488af85ffe2c0fc6, type: 2}
+  enemyWalking: {fileID: 8300000, guid: 9593855f49469d34fbe97f85b070e516, type: 3}
+  enemySight: {fileID: 8300000, guid: 57677934743b726408571f5d4a2b71e9, type: 3}
+  enemyChasing: {fileID: 8300000, guid: 0b63c07528a83dd49be1919478d04424, type: 3}
+  enemySightSource: {fileID: 0}
+  enemyChaseSource: {fileID: 0}
 --- !u!195 &1068221551
 NavMeshAgent:
   m_ObjectHideFlags: 0

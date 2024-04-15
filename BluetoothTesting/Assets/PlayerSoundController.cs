@@ -14,19 +14,18 @@ public class PlayerSoundController : MonoBehaviour
     public bool pulaCaLemnu;
     public bool pulaCaTeava;
     
-    public PlayerMovement playerMovement;
+   
 
     void Start()
     {
-        playerMovement = GetComponent<PlayerMovement>();
 
         // Assign the AudioSource components
         woodSurfaceAudio = gameObject.AddComponent<AudioSource>();
         woodSurfaceAudio.clip = woodSound;
-        //woodSurfaceAudio.Play();
+ 
         metalSurfaceAudio = gameObject.AddComponent<AudioSource>();
         metalSurfaceAudio.clip = metalSound;
-        //metalSurfaceAudio.Play();
+
     }
 
     void Update(){
