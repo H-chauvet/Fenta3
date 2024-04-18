@@ -1334,6 +1334,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f567ba1d44e374c92f8a8a501a9782, type: 3}
+--- !u!1 &1006615453 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2876314586170453522, guid: fa71b626591b0984480479684d78f448, type: 3}
+  m_PrefabInstance: {fileID: 1074367885}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1074367885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1346,6 +1351,10 @@ PrefabInstance:
       propertyPath: m_StepOffset
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2876314586170453522, guid: fa71b626591b0984480479684d78f448, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3019149769454479424, guid: fa71b626591b0984480479684d78f448, type: 3}
       propertyPath: m_Radius
       value: 3
@@ -1357,6 +1366,10 @@ PrefabInstance:
     - target: {fileID: 3622454269455151851, guid: fa71b626591b0984480479684d78f448, type: 3}
       propertyPath: m_Name
       value: Player2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622454269455151851, guid: fa71b626591b0984480479684d78f448, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5557824191602523339, guid: fa71b626591b0984480479684d78f448, type: 3}
       propertyPath: m_LocalScale.x
@@ -1412,7 +1425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7456380398209755221, guid: fa71b626591b0984480479684d78f448, type: 3}
       propertyPath: rangeAmplifier
-      value: 0.75
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7604191844709434152, guid: fa71b626591b0984480479684d78f448, type: 3}
       propertyPath: lightRangedMod
@@ -1420,7 +1433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7604191844709434152, guid: fa71b626591b0984480479684d78f448, type: 3}
       propertyPath: lightIntensityMod
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8401199792680921165, guid: fa71b626591b0984480479684d78f448, type: 3}
       propertyPath: m_Range
@@ -1450,7 +1463,7 @@ PrefabInstance:
     - target: {fileID: 778045573079824944, guid: f5cc3eee718254940b459fdb03cc5b1a, type: 3}
       propertyPath: flashlight
       value: 
-      objectReference: {fileID: 398914089}
+      objectReference: {fileID: 1006615453}
     - target: {fileID: 4693503681790627381, guid: f5cc3eee718254940b459fdb03cc5b1a, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.075
@@ -2058,7 +2071,7 @@ PrefabInstance:
     - target: {fileID: 1762133696860918089, guid: 9357a0b6ddca4074dab68acb5b7e3788, type: 3}
       propertyPath: light
       value: 
-      objectReference: {fileID: 398914089}
+      objectReference: {fileID: 1006615453}
     - target: {fileID: 1762133696860918089, guid: 9357a0b6ddca4074dab68acb5b7e3788, type: 3}
       propertyPath: player
       value: 

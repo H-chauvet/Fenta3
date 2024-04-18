@@ -239,8 +239,7 @@ public class EnemyStateManager : MonoBehaviour
             }
             else
             {
-                Vector3 LSLV3 = hitSphere.gameObject.transform.position;
-                lastSeenLocation = LSLV3;
+                lastSeenLocation = hitSphere.gameObject.transform.position;
                 Debug.DrawLine(transform.position, lastSeenLocation, Color.red, 1f);
                 timeSinceLastRefresh = 0;
             }
