@@ -198,7 +198,7 @@ public class EnemyStateManager : MonoBehaviour
                     else if (hitDick.collider.CompareTag("LightArea"))
                     {
                         Debug.Log("Chasing light");
-                        enemyBehaviour.CheckPlayerExtremities();
+                        
                         hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
                     }
                 }
