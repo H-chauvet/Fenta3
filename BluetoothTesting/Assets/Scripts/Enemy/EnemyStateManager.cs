@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
+using Debug = UnityEngine.Debug;
 
 [RequireComponent(typeof(Animator))]
 public class EnemyStateManager : MonoBehaviour
@@ -57,7 +59,7 @@ public class EnemyStateManager : MonoBehaviour
     [HideInInspector]public AudioSource enemyChaseSource;
     #endregion
     
-    private Transform lastSeenLocation;
+    private Vector3 lastSeenLocation;
     private float timeSinceLastRefresh;
     
     void Start()
@@ -151,19 +153,21 @@ public class EnemyStateManager : MonoBehaviour
         
         navMeshAgent.acceleration = stalkingSpeed;
         GoToPlayer();
-        MoveTowards(lastSeenLocation.position);
+        MoveTowards(lastSeenLocation);
     }
 
     public void Chase()
     {
         navMeshAgent.acceleration = chaseSpeed;
         GoToPlayer();
-        MoveTowards(lastSeenLocation.position);
+        MoveTowards(lastSeenLocation);
     }
 
     public void Track()
     {
-        MoveTowards(lastSeenLocation.position);
+        //Debug.Log("Last Seen Location is: " + lastSeenLocation.position);
+        //Debug.Log("Player location is: " + GameManager.Instance.player.transform.position);
+        MoveTowards(lastSeenLocation);
     }
 
     public void MoveTowards(Vector3 position)
@@ -192,14 +196,15 @@ public class EnemyStateManager : MonoBehaviour
                 {
                     if (hitDick.collider.CompareTag("Player"))
                     {
-                        Debug.Log("Chasing player");
+                        //Debug.Log("Chasing player");
                         hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
+                        isSeeingPlayer = true;
                     }
                     else if (hitDick.collider.CompareTag("LightArea"))
                     {
-                        Debug.Log("Chasing light");
-                        
+                        //Debug.Log("Chasing light");
                         hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
+                        isSeeingLight = true;
                     }
                 }
             }
@@ -212,6 +217,14 @@ public class EnemyStateManager : MonoBehaviour
 
         return hitCollider;
     }
+ #if UNITY_EDITOR || DEBUG
+    private void OnGUI()
+    {
+        //if (lastSeenLocation is null) return;
+        GUI.Label(new Rect(20, 20, 200, 50), "Last Seen Location" + lastSeenLocation.ToString());
+        GUI.Label(new Rect(20, 70, 200, 50), "Player Location" + GameManager.Instance.player.transform.position.ToString());
+    }
+    #endif
 
     void GoToPlayer()
     {
@@ -221,23 +234,17 @@ public class EnemyStateManager : MonoBehaviour
         {
             if (timeSinceLastRefresh <= lastPOSRefreshRate)
             {
+                Debug.Log("ouch");
                 timeSinceLastRefresh += Time.deltaTime;
             }
             else
             {
-                lastSeenLocation = hitSphere.transform;
+                Vector3 LSLV3 = hitSphere.gameObject.transform.position;
+                lastSeenLocation = LSLV3;
+                Debug.DrawLine(transform.position, lastSeenLocation, Color.red, 1f);
                 timeSinceLastRefresh = 0;
             }
-            
-            if (hitSphere.CompareTag("Player"))
-            {
-                isSeeingPlayer = true;
-            }
-            else if (hitSphere.CompareTag("LightArea"))
-            {
-                isSeeingLight = true;
-            }
-            
+
         }
         else
         {
