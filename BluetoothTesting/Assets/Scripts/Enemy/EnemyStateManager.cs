@@ -80,12 +80,21 @@ public class EnemyStateManager : MonoBehaviour
         //Initialize audio
         enemyWalkSource = gameObject.AddComponent<AudioSource>();
         enemyWalkSource.clip = enemyWalking;
+        enemyWalkSource.spatialBlend = 1;
+        enemyWalkSource.minDistance *= 55;
+        enemyWalkSource.maxDistance *= 55;
         
         enemySightSource = gameObject.AddComponent<AudioSource>();
         enemySightSource.clip = enemySight;
+        enemySightSource.spatialBlend = 1;
+        enemySightSource.minDistance *= 55;
+        enemySightSource.maxDistance *= 55;
         
         enemyChaseSource = gameObject.AddComponent<AudioSource>();
         enemyChaseSource.clip = enemyChasing;
+        enemyChaseSource.spatialBlend = 1;
+        enemyChaseSource.minDistance *= 55;
+        enemyChaseSource.maxDistance *= 55;
     }
 
     
@@ -239,7 +248,7 @@ public class EnemyStateManager : MonoBehaviour
             }
             else
             {
-                lastSeenLocation = hitSphere.gameObject.transform.position;
+                lastSeenLocation =isSeeingPlayer? GameManager.Instance.player.transform.position : hitSphere.gameObject.transform.position;
                 Debug.DrawLine(transform.position, lastSeenLocation, Color.red, 1f);
                 timeSinceLastRefresh = 0;
             }
