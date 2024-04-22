@@ -29,15 +29,15 @@ public class ConeRaycaster : MonoBehaviour
     
         void Update()
         {
-            // // Update cone points positions based on Spot Light parameters
+            // Update cone points positions based on Spot Light parameters
              UpdateConePoints();
-            //
-            // midLength.tag = "Extremity";
-            // centerBase.tag = "Extremity";
-            // basePoints[2].tag = "Extremity";
-            // basePoints[3].tag = "Extremity";
-            // // Shoot raycasts between all pairs of points
-            // ShootRaycasts();
+            
+            midLength.tag = "Extremity";
+            centerBase.tag = "Extremity";
+            basePoints[2].tag = "Extremity";
+            basePoints[3].tag = "Extremity";
+            // Shoot raycasts between all pairs of points
+             ShootRaycasts();
         }
 
         void InitializeConePoints()
@@ -66,7 +66,7 @@ public class ConeRaycaster : MonoBehaviour
                     tag = "Extremity",
                     transform = {parent = this.transform}
                 }.transform;
-                //basePoints[i].SetParent(transform);
+                
             }
 
             SphereCollider centerCol = centerBase.AddComponent<SphereCollider>();
@@ -116,86 +116,85 @@ public class ConeRaycaster : MonoBehaviour
             
         }
     
-        // void ShootRaycasts()
-        // {
-        //     
-        //     
-        //     // Shoot raycasts and handle collisions
-        //     foreach (Transform basePoint in basePoints) //Tip -> corner
-        //     {
-        //         Vector3 direction = (basePoint.position - tip.position).normalized;
-        //         float distance = Vector3.Distance(tip.position, basePoint.position);
-        //
-        //         RaycastHit[] hits = Physics.RaycastAll(tip.position, direction, distance);
-        //         
-        //         foreach (RaycastHit hit in hits) 
-        //         {
-        //             // Handle collisions here
-        //             //Debug.Log("Edge" + basePoint.name + " collision with " + hit.collider.gameObject.name);
-        //             HandleCollisions(hit.collider);
-        //         }
-        //         
-        //         foreach (Transform otherPoint in basePoints) //Corner -> other corners
-        //         {
-        //             if (otherPoint == basePoint) continue;
-        //             Vector3 oDirection = (otherPoint.position - basePoint.position).normalized;
-        //             float oDistance = Vector3.Distance(basePoint.position, otherPoint.position);
-        //
-        //             RaycastHit[] otherHits = Physics.RaycastAll(basePoint.position, oDirection, oDistance);
-        //             
-        //             //Debug.Log("hey");
-        //             
-        //             foreach (RaycastHit oHit in otherHits)
-        //             {
-        //                 // Handle collisions here
-        //                 //Debug.Log("Base between " + basePoint.name + "and " + otherPoint.name + " collision with " + oHit.collider.gameObject.name);
-        //                 
-        //             }
-        //         }
-        //     }
-        //     //Tip -> right
-        //     Vector3 rightDirection = (basePoints[2].position - tip.position).normalized;
-        //     float rightDistance = Vector3.Distance(tip.position, basePoints[2].position);
-        //
-        //     RaycastHit[] rightHits = Physics.RaycastAll(tip.position, rightDirection, rightDistance);
-        //         
-        //     foreach (RaycastHit rightHit in rightHits) 
-        //     {
-        //         // Handle collisions here
-        //         //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
-        //         //HandleCollisions(rightHit.collider);
-        //     }
-        //     
-        //     //Tip -> left
-        //     Vector3 leftDirection = (basePoints[3].position - tip.position).normalized;
-        //     float leftDistance = Vector3.Distance(tip.position, basePoints[3].position);
-        //
-        //     RaycastHit[] leftHits = Physics.RaycastAll(tip.position, leftDirection, leftDistance);
-        //         
-        //     foreach (RaycastHit leftHit in leftHits) 
-        //     {
-        //         // Handle collisions here
-        //         //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
-        //         //HandleCollisions(leftHit.collider);
-        //     }
-        //     
-        //     //Tip -> center
-        //     Vector3 midDirection = (centerBase.position - tip.position).normalized;
-        //     float midDistance = Vector3.Distance(tip.position, centerBase.position);
-        //
-        //     RaycastHit[] midHits = Physics.RaycastAll(tip.position, midDirection, midDistance);
-        //     if(midHits.Length != 0 && (!midHits[0].collider.gameObject.CompareTag("Enemy") || !midHits[0].collider.gameObject.CompareTag("Extremity"))) midHits[0].collider.tag = "Untagged";
-        //     Debug.DrawRay(tip.position, midDirection, Color.black);
-        //     // foreach (RaycastHit midHit in midHits) 
-        //     // {
-        //     //     // Handle collisions here
-        //     //     //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
-        //     //     if (midHit.collider.gameObject == centerBase.gameObject) continue;
-        //     //     midHit.collider.tag = "Untagged";
-        //     //     //HandleCollisions(midHit.collider);
-        //     // }
-        // }
-        //
+        void ShootRaycasts()
+        {
+            
+            
+            // Shoot raycasts and handle collisions
+            foreach (Transform basePoint in basePoints) //Tip -> corner
+            {
+                Vector3 direction = (basePoint.position - tip.position).normalized;
+                float distance = Vector3.Distance(tip.position, basePoint.position);
+        
+                RaycastHit[] hits = Physics.RaycastAll(tip.position, direction, distance);
+                
+                foreach (RaycastHit hit in hits) 
+                {
+                    // Handle collisions here
+                    //Debug.Log("Edge" + basePoint.name + " collision with " + hit.collider.gameObject.name);
+                    
+                }
+                
+                foreach (Transform otherPoint in basePoints) //Corner -> other corners
+                {
+                    if (otherPoint == basePoint) continue;
+                    Vector3 oDirection = (otherPoint.position - basePoint.position).normalized;
+                    float oDistance = Vector3.Distance(basePoint.position, otherPoint.position);
+        
+                    RaycastHit[] otherHits = Physics.RaycastAll(basePoint.position, oDirection, oDistance);
+                    
+                    
+                    
+                    foreach (RaycastHit oHit in otherHits)
+                    {
+                        // Handle collisions here
+                        //Debug.Log("Base between " + basePoint.name + "and " + otherPoint.name + " collision with " + oHit.collider.gameObject.name);
+                        
+                    }
+                }
+            }
+            //Tip -> right
+            Vector3 rightDirection = (basePoints[2].position - tip.position).normalized;
+            float rightDistance = Vector3.Distance(tip.position, basePoints[2].position);
+        
+            RaycastHit[] rightHits = Physics.RaycastAll(tip.position, rightDirection, rightDistance);
+                
+            foreach (RaycastHit rightHit in rightHits) 
+            {
+                // Handle collisions here
+                //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
+                
+            }
+            
+            //Tip -> left
+            Vector3 leftDirection = (basePoints[3].position - tip.position).normalized;
+            float leftDistance = Vector3.Distance(tip.position, basePoints[3].position);
+        
+            RaycastHit[] leftHits = Physics.RaycastAll(tip.position, leftDirection, leftDistance);
+                
+            foreach (RaycastHit leftHit in leftHits) 
+            {
+                // Handle collisions here
+                //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
+                
+            }
+            
+            //Tip -> center
+            Vector3 midDirection = (centerBase.position - tip.position).normalized;
+            float midDistance = Vector3.Distance(tip.position, centerBase.position);
+        
+            RaycastHit[] midHits = Physics.RaycastAll(tip.position, midDirection, midDistance);
+            //if(midHits.Length != 0 && (!midHits[0].collider.gameObject.CompareTag("Enemy") || !midHits[0].collider.gameObject.CompareTag("Extremity"))) midHits[0].collider.tag = "Untagged";
+            Debug.DrawRay(tip.position, midDirection, Color.black);
+            foreach (RaycastHit midHit in midHits) 
+            {
+                // Handle collisions here
+                //Debug.Log("Mid collision with " + midHit.collider.gameObject.name);
+                if (midHit.collider.gameObject == centerBase.gameObject) continue;
+                
+            }
+        }
+        
         public SphereCollider CreateSphere()
         {
             //lightDetectArea.tag = "LightArea";
@@ -231,17 +230,5 @@ public class ConeRaycaster : MonoBehaviour
         //     
         // }
 
-        // void HandleCollisions(Collider col)
-        // {
-        //     if (!col.gameObject.CompareTag("Enemy"))
-        //     {
-        //         col.gameObject.tag = "Untagged";
-        //         //Debug.Log(col.gameObject);
-        //     }
-        //
-        //     if (col.gameObject.CompareTag("Extremity"))
-        //     {
-        //         col.gameObject.tag = "Extremity";
-        //     }
-        // }
+        
 }

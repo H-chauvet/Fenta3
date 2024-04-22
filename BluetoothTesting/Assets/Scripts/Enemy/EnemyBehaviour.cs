@@ -198,8 +198,8 @@ public class EnemyBehaviour : MonoBehaviour
                 Gizmos.DrawLine(extremity.position, oExtremity.position);
             }
         }
-        Gizmos.color = Color.green;
-        if (GameManager.Instance == null) return;
-        Gizmos.DrawLine(transform.position, GameManager.Instance.player.transform.position);
+        // Gizmos.color = Color.green;
+        // if (GameManager.Instance == null) return;
+        // Gizmos.DrawLine(transform.position, GameManager.Instance.player.transform.position);
     }
 }
