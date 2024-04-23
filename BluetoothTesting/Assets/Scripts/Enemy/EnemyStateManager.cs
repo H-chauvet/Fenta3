@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 using Debug = UnityEngine.Debug;
@@ -38,7 +37,7 @@ public class EnemyStateManager : MonoBehaviour
     [HideInInspector] public bool isSeeingLight;
     [HideInInspector] public bool isSeeingPlayer;
     
-    [SerializeField]private AnimatorController FSM;
+    [SerializeField]private RuntimeAnimatorController FSM;
 
     private NavMeshAgent navMeshAgent;
     private Animator anim;
