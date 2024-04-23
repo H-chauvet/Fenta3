@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
@@ -61,6 +62,9 @@ public class EnemyStateManager : MonoBehaviour
     
     private Vector3 lastSeenLocation;
     private float timeSinceLastRefresh;
+    
+    private bool isWithinLight;
+    private SphereCollider LightSphere;
     
     void Start()
     {
@@ -199,24 +203,39 @@ public class EnemyStateManager : MonoBehaviour
         bigDick = enemyBehaviour.ShootRaycasts();
         if (enemyBehaviour.DirectPlayerSight)
         {
-            foreach (KeyValuePair<Transform, RaycastHit[]> smallDick in bigDick)
-            {
-                foreach (RaycastHit hitDick in smallDick.Value)
+            
+                foreach (KeyValuePair<Transform, RaycastHit[]> smallDick in bigDick)
                 {
-                    if (hitDick.collider.CompareTag("Player"))
+                    foreach (RaycastHit hitDick in smallDick.Value)
                     {
-                        //Debug.Log("Chasing player");
-                        hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
-                        isSeeingPlayer = true;
-                    }
-                    else if (hitDick.collider.CompareTag("LightArea"))
-                    {
-                        //Debug.Log("Chasing light");
-                        hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
-                        isSeeingLight = true;
+                        if (hitDick.collider.CompareTag("Player"))
+                        {
+                            //Debug.Log("Chasing player");
+                            hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
+                            isSeeingPlayer = true;
+                        }
+                        else if (hitDick.collider.CompareTag("LightArea"))
+                        {
+                            //Debug.Log("Chasing light");
+                            hitCollider = hitDick.collider.gameObject.GetComponent<SphereCollider>();
+                            isSeeingLight = true;
+                        }
                     }
                 }
-            }
+
+                if (hitCollider == null)
+                {
+                    if (isWithinLight)
+                    {
+                        if (!LightSphere.IsDestroyed())
+                        {
+                            Debug.Log("Is within light of sphere with radius: " + LightSphere.radius);
+                            hitCollider = LightSphere;
+                            isSeeingLight = true;
+                        } 
+                    }
+                }
+            
         }
         else
         {
@@ -226,13 +245,42 @@ public class EnemyStateManager : MonoBehaviour
 
         return hitCollider;
     }
- #if UNITY_EDITOR || DEBUG
-    private void OnGUI()
+
+    
+    
+    private void OnTriggerStay(Collider other)
     {
-        //if (lastSeenLocation is null) return;
-        GUI.Label(new Rect(20, 20, 200, 50), "Last Seen Location" + lastSeenLocation.ToString());
-        GUI.Label(new Rect(20, 70, 200, 50), "Player Location" + GameManager.Instance.player.transform.position.ToString());
+        if (other is SphereCollider)
+        {
+            if (other.CompareTag("LightArea"))
+            {
+                isWithinLight = true;
+                LightSphere = other as SphereCollider;
+            }
+            else
+            {
+                isWithinLight = false;
+                LightSphere = null;
+            } 
+            
+        }  
+        else
+        {
+            isWithinLight = false;
+            LightSphere = null;
+        } 
+        
+        
+        
     }
+    
+ #if UNITY_EDITOR || DEBUG
+    // private void OnGUI()
+    // {
+    //     //if (lastSeenLocation is null) return;
+    //     GUI.Label(new Rect(20, 20, 200, 50), "Last Seen Location" + lastSeenLocation.ToString());
+    //     GUI.Label(new Rect(20, 70, 200, 50), "Player Location" + GameManager.Instance.player.transform.position.ToString());
+    // }
     #endif
 
     void GoToPlayer()
@@ -243,7 +291,7 @@ public class EnemyStateManager : MonoBehaviour
         {
             if (timeSinceLastRefresh <= lastPOSRefreshRate)
             {
-                Debug.Log("ouch");
+                //Debug.Log("ouch");
                 timeSinceLastRefresh += Time.deltaTime;
             }
             else

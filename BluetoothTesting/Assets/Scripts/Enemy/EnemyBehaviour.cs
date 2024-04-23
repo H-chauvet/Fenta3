@@ -141,12 +141,12 @@ public class EnemyBehaviour : MonoBehaviour
             
             if (hit.collider.CompareTag("Player"))
             {
-                Debug.Log("True");
+                //Debug.Log("True");
                 DirectPlayerSight = true;
             }
             else
             {
-                Debug.Log(hit.collider.tag);
+                //Debug.Log(hit.collider.tag);
                 DirectPlayerSight = false;
             }
 
@@ -159,13 +159,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            GameManager.Instance.GameOver();
-        }
-    }
+    
 
     public void CheckPlayerExtremities()
     {

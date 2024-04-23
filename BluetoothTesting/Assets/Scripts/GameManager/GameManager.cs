@@ -10,7 +10,11 @@ public class GameManager : MonoBehaviour
     
     public GameObject player;
     public GameObject light;
-    //public GameObject[] enemyArray;
+    public GameObject enemy;
+
+    [SerializeField] private bool LevelIsLosable;
+    [SerializeField]
+    private float LoseDistance = 500f;
     
     
     
@@ -39,6 +43,20 @@ public class GameManager : MonoBehaviour
         lastLevel.levelIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
+    private void Update()
+    {
+        
+        if (LevelIsLosable)
+        {
+            float distance = Vector3.Distance(enemy.transform.position , player.transform.position);
+            if (distance <= LoseDistance)
+            {
+                GameOver();
+            }
+        }
+        
+    }
+
     public void LoadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -59,17 +77,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
 
-    public void WinGame()
+    private void OnDrawGizmos()
     {
-        //TODO: Implement WinGame logic
+        if (!LevelIsLosable) return;
+        Gizmos.color = Color.red;
+        Vector3 direction = player.transform.position - enemy.transform.position;
+        direction = direction.normalized * Mathf.Min(LoseDistance, direction.magnitude);
+        Gizmos.DrawLine(enemy.transform.position, enemy.transform.position + direction);
     }
-
-    //If level manager is only present on playable levels, this logic would only work for popup UI on player death
-    //Might have to do this in a different, better way. For now, it exists
-    public void ReloadLastLevel()
-    {
-        SceneManager.LoadScene(lastLevel.levelIndex);
-    }
-    
-    
 }

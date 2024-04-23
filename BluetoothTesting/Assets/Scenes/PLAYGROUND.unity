@@ -29943,6 +29943,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7536969985162333076, guid: fa71b626591b0984480479684d78f448, type: 3}
+      propertyPath: far clip plane
+      value: 10000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30026,6 +30030,10 @@ PrefabInstance:
       value: GameManagerNew
       objectReference: {fileID: 0}
     - target: {fileID: 7249889945027133147, guid: b6f5717d1444e2849a8443118694d369, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1068221546}
+    - target: {fileID: 7249889945027133147, guid: b6f5717d1444e2849a8443118694d369, type: 3}
       propertyPath: light
       value: 
       objectReference: {fileID: 4396901855244948237}
@@ -30033,6 +30041,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 4396901856188840279}
+    - target: {fileID: 7249889945027133147, guid: b6f5717d1444e2849a8443118694d369, type: 3}
+      propertyPath: LoseDistance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7249889945027133147, guid: b6f5717d1444e2849a8443118694d369, type: 3}
+      propertyPath: LevelIsLosable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8223633922345203048, guid: b6f5717d1444e2849a8443118694d369, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1624.3575
