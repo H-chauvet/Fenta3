@@ -22642,6 +22642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FULL_MAZE
       objectReference: {fileID: 0}
+    - target: {fileID: 2329358301721111372, guid: a7f576706db906b498a5970ea02e732d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5513186279265468898, guid: a7f576706db906b498a5970ea02e732d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3774
