@@ -30077,6 +30077,10 @@ PrefabInstance:
       propertyPath: rangeAmplifier
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 7536969985162333076, guid: fa71b626591b0984480479684d78f448, type: 3}
+      propertyPath: far clip plane
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 7604191844709434152, guid: fa71b626591b0984480479684d78f448, type: 3}
       propertyPath: lightRangedMod
       value: 45
