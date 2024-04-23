@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     
     public GameObject player;
     public GameObject light;
-    public GameObject[] enemyArray;
+    //public GameObject[] enemyArray;
     
     
     
@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //TODO: Implement GameOver logic
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene("GameOver");
     }
 

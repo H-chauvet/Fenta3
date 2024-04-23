@@ -9,7 +9,6 @@ public class PickupLogic : MonoBehaviour
     [SerializeField] private float xOffset = 5;
     [SerializeField] private float yOffset = 2;
     [SerializeField] private float zOffset = 4;
-    [SerializeField] private float scaleDivider = 8;
     #endregion
     
     [HideInInspector]public ItemLogic currentItem;

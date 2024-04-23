@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
 
     public float walkSpeed = 5.0f;
     public float sensitivity = 2.0f;
-    public float jumpForce = 8.0f;
     [HideInInspector]public bool canMove = true;
     [HideInInspector]public CharacterController characterController;
     [SerializeField] private Light spotLight;
@@ -60,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         if (!canMove) return;
         HandleMovement();
         HandleMovementJoysticks();
-        HandleJump();
+        
     }
 
     public void SetMovementsDirection(float horizontal, float vertical)
@@ -128,17 +127,7 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation *= Quaternion.Euler(0, mouseX, 0);
     }
 
-    void HandleJump()
-    {
-        if (characterController.isGrounded)
-        {
-            if (Input.GetButtonDown("Jump"))
-            {
-                
-                characterController.Move(Vector3.up * jumpForce);
-            }
-        }
-    }
+    
 }
 
 

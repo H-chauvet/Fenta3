@@ -7,6 +7,7 @@ using UnityEngine.Video;
 public class videoStops : MonoBehaviour
 {
     [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField] private int LevelToLoad;
 
     // Update is called once per frame
     void LateUpdate()
@@ -20,7 +21,9 @@ public class videoStops : MonoBehaviour
         yield return new WaitForSeconds(3f);
         if (!videoPlayer.isPlaying)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            
+                GameManager.Instance.LoadLevel(LevelToLoad);
+            
         }
     }
 }
