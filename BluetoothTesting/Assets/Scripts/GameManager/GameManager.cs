@@ -77,6 +77,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
 
+    public void WinGame()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        LoadLevel(3);
+    }
+
     private void OnDrawGizmos()
     {
         if (!LevelIsLosable) return;

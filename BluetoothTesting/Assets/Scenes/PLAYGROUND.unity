@@ -4806,6 +4806,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1958195633523925235, guid: 9357a0b6ddca4074dab68acb5b7e3788, type: 3}
+      propertyPath: IP
+      value: 127.0.0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1762133696860918089, guid: 9357a0b6ddca4074dab68acb5b7e3788, type: 3}
     m_RemovedGameObjects: []
@@ -9979,8 +9983,8 @@ MonoBehaviour:
   cinMoveSpeed: 0.15
   cinTurnSpeed: 0.035
   POVincrement: 0.2
-  stoppingDistance: 2
-  distanceStartFade: 3
+  stoppingDistance: 400
+  distanceStartFade: 550
   fadeIncrement: 0.01
 --- !u!65 &662238097
 BoxCollider:
@@ -26970,6 +26974,12 @@ PrefabInstance:
     - {fileID: 4111292687732967266, guid: a7f576706db906b498a5970ea02e732d, type: 3}
     - {fileID: 4780052539331482197, guid: a7f576706db906b498a5970ea02e732d, type: 3}
     - {fileID: 3806091251682505934, guid: a7f576706db906b498a5970ea02e732d, type: 3}
+    - {fileID: 3730256788232507285, guid: a7f576706db906b498a5970ea02e732d, type: 3}
+    - {fileID: 7885036632688835487, guid: a7f576706db906b498a5970ea02e732d, type: 3}
+    - {fileID: 8065801414429254525, guid: a7f576706db906b498a5970ea02e732d, type: 3}
+    - {fileID: 2320306595884239557, guid: a7f576706db906b498a5970ea02e732d, type: 3}
+    - {fileID: 5340387296350794748, guid: a7f576706db906b498a5970ea02e732d, type: 3}
+    - {fileID: 8217563477654629249, guid: a7f576706db906b498a5970ea02e732d, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4791151543955544053, guid: a7f576706db906b498a5970ea02e732d, type: 3}
       insertIndex: -1
@@ -32298,6 +32308,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemyy
       objectReference: {fileID: 0}
+    - target: {fileID: 6131182287174419467, guid: a0f567ba1d44e374c92f8a8a501a9782, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6799737671884381873, guid: a0f567ba1d44e374c92f8a8a501a9782, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4079
@@ -32539,6 +32553,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManagerNew
       objectReference: {fileID: 0}
+    - target: {fileID: 7249889945027133147, guid: b6f5717d1444e2849a8443118694d369, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1068221546}
     - target: {fileID: 7249889945027133147, guid: b6f5717d1444e2849a8443118694d369, type: 3}
       propertyPath: light
       value: 

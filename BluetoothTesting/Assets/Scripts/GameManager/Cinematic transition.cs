@@ -43,9 +43,10 @@ public class Cinematictransition : MonoBehaviour
             GoToCinematic(player);
         }
     }
-    
+
     void GoToCinematic(GameObject _player)
     {
+        
         Vector3 direction = target.position - _player.transform.position;
         float distance = Vector3.Distance(_player.transform.position, target.position);
         Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -56,8 +57,12 @@ public class Cinematictransition : MonoBehaviour
         }
         if (distance > stoppingDistance)
         {
-             _player.GetComponent<PlayerMovement>().characterController.Move(direction * cinMoveSpeed * Time.deltaTime);
+            _player.GetComponent<PlayerMovement>().characterController.Move(direction * cinMoveSpeed * Time.deltaTime);
             camera.fieldOfView += POVincrement;
+        }
+        else if (distance <= stoppingDistance)
+        {
+            GameManager.Instance.WinGame();
         }
 
     }
